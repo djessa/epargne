@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\FundsRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=FundsRepository::class)
+ * @Vich\Uploadable
  */
 class Funds
 {
@@ -26,7 +28,28 @@ class Funds
      * @ORM\Column(type="string", length=255)
      */
     private $piece_obtaining;
+    /**
+     * @var File
+     * @Vich\UploadableField (mapping="piece_obtaining_image", fileNameProperty="piece_obtaining")
+     */
+    private $piece_obtaining_file;
 
+    /**
+     * @return File
+     */
+    public function getPieceObtainingFile(): ?File
+    {
+        return $this->piece_obtaining_file;
+    }
+
+    /**
+     * @param File $piece_obtaining_file
+     */
+    public function setPieceObtainingFile(File $piece_obtaining_file): void
+    {
+        $this->piece_obtaining_file = $piece_obtaining_file;
+        if ($this->setUpdatedAt(new  \DateTime()));
+    }
     /**
      * @ORM\Column(type="integer")
      */

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 text-center">
+                <a href="/images/cin_recto/{{ persons.cinRecto }}"><img class=" img-fluid" src="/images/cin_recto/{{ persons.cinRecto }}"></a>
+            </div>
+            <div class="col-lg-4 col-md-4 text-center">
+                <a href="/images/cin_verso/{{ persons.cinVerso }}"><img class="img-fluid" src="/images/cin_verso/{{ persons.cinVerso }}"></a>
+            </div>
+            <div class="col-lg-4 col-md-4 text-center">
+                <a href="/images/certificat/{{ persons.certificat}}"><img  class="img-fluid" src="/images/certificat/{{ persons.certificat}}"></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

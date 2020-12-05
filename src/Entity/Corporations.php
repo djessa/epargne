@@ -6,9 +6,12 @@ use App\Repository\CorporationsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=CorporationsRepository::class)
+ * @Vich\Uploadable
  */
 class Corporations
 {
@@ -33,22 +36,46 @@ class Corporations
      * @ORM\Column(type="string", length=255)
      */
     private $piece_person;
+    /**
+     * @var File
+     * @Vich\UploadableField (mapping="piece_person_image", fileNameProperty="piece_person")
+     */
+    private $piece_person_file;
 
+    /**
+     * @return File
+     */
+    public function getPiecePersonFile(): ?File
+    {
+        return $this->piece_person_file;
+    }
+
+    /**
+     * @param File $piece_person_file
+     */
+    public function setPiecePersonFile(File $piece_person_file): void
+    {
+        $this->piece_person_file = $piece_person_file;
+        if ($this->piece_person_file instanceof UploadedFile){
+            $this->setUpdatedAt(new \DateTime());
+        }
+    }
     /**
      * @ORM\ManyToOne(targetEntity=Persons::class, inversedBy="corporations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $person;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Depots::class, mappedBy="corporation")
-     */
-    private $depots;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Depots::class, mappedBy="corporations")
+     */
+    private $depots;
 
     public function __construct()
     {
@@ -108,6 +135,19 @@ class Corporations
         return $this;
     }
 
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Depots[]
      */
@@ -120,7 +160,7 @@ class Corporations
     {
         if (!$this->depots->contains($depot)) {
             $this->depots[] = $depot;
-            $depot->setCorporation($this);
+            $depot->setCorporations($this);
         }
 
         return $this;
@@ -130,22 +170,10 @@ class Corporations
     {
         if ($this->depots->removeElement($depot)) {
             // set the owning side to null (unless already changed)
-            if ($depot->getCorporation() === $this) {
-                $depot->setCorporation(null);
+            if ($depot->getCorporations() === $this) {
+                $depot->setCorporations(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }

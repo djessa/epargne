@@ -19,15 +19,6 @@ class Depots
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="time")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Persons::class, inversedBy="depots")
-     */
-    private $person;
 
     /**
      * @ORM\OneToOne(targetEntity=Funds::class, inversedBy="depots", cascade={"persist", "remove"})
@@ -36,56 +27,30 @@ class Depots
     private $fund;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Persons::class, inversedBy="depots")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $persons;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Corporations::class, inversedBy="depots")
      */
-    private $corporation;
+    private $corporations;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
 
 
-    public function __construct()
-    {
-        $this->person = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
 
-        return $this;
-    }
-
-    /**
-     * @return Collection|Persons[]
-     */
-    public function getPerson(): Collection
-    {
-        return $this->person;
-    }
-
-    public function addPerson(Persons $person): self
-    {
-        if (!$this->person->contains($person)) {
-            $this->person[] = $person;
-        }
-
-        return $this;
-    }
-
-    public function removePerson(Persons $person): self
-    {
-        $this->person->removeElement($person);
-
-        return $this;
-    }
 
     public function getFund(): ?Funds
     {
@@ -99,16 +64,61 @@ class Depots
         return $this;
     }
 
-    public function getCorporation(): ?Corporations
+    public function getPersons(): ?Persons
     {
-        return $this->corporation;
+        return $this->persons;
     }
 
-    public function setCorporation(?Corporations $corporation): self
+    public function setPersons(?Persons $persons): self
     {
-        $this->corporation = $corporation;
+        $this->persons = $persons;
 
         return $this;
     }
+
+    public function getCorporations(): ?Corporations
+    {
+        return $this->corporations;
+    }
+
+    public function setCorporations(?Corporations $corporations): self
+    {
+        $this->corporations = $corporations;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+    public function  taux()
+    {
+        $funds = $this->getFund();
+        $taux = $funds->getRate();
+        if ($funds->getDuration() == 1)
+            return  $taux->getValueOfOne();
+        if ($funds->getDuration() == 2)
+            return  $taux->getValueOfTwo();
+        return $taux->getValueOfThree();
+    }
+    public function  capitaux()
+    {
+        $funds = $this->getFund();
+        $taux = $funds->getRate();
+        if ($funds->getDuration() == 1)
+            return  $funds->getValue()+ ($funds->getValue()*$taux->getValueOfOne())/100;
+        if ($funds->getDuration() == 2)
+            return  $funds->getValue()+ ($funds->getValue()*$taux->getValueOfTwo())/100;
+        return  $funds->getValue()+ ($funds->getValue()*$taux->getValueOfThree())/100;
+    }
+
     
 }

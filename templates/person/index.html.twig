@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table class="table table-secondary">
+        <thead>
+            <tr>
+                <th>Identité</th><th>Nom et prénom</th><th>Nationalité</th><th>Adresse</th><th>Téléphone</th><th>Email</th><th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for person in persons %}
+            <tr>
+                <td>{{ person.identity }}</td><td>{{ person.name }}</td><td>{{ person.nationality }}</td><td>{{ person.address }}</td><td>{{ person.tel }}</td><td>{{ person.email }}</td>
+                <td><a class="btn-sm btn-success mr-2" href="{{ path("depot", {'id':person.id}) }}">Dépot(s)</a><a class="btn-sm btn-warning mr-2" href="{{ path("person_corporation", {'id':person.id}) }}">Association(s)</a><a class="btn-sm btn-primary" href="{{ path("show_image", {'id':person.id}) }}">Info scannées</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

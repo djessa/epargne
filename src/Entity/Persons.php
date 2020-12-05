@@ -6,9 +6,12 @@ use App\Repository\PersonsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=PersonsRepository::class)
+ * @Vich\Uploadable
  */
 class Persons
 {
@@ -38,22 +41,90 @@ class Persons
      * @ORM\Column(type="string", length=255)
      */
     private $cin_recto;
+    /**
+     * @var File
+     * @Vich\UploadableField(mapping="cin_recto_image", fileNameProperty="cin_recto")
+     */
+    private $cin_recto_file;
 
+    /**
+     * @return File
+     */
+    public function getCinRectoFile(): ?File
+    {
+        return $this->cin_recto_file;
+    }
+
+    /**
+     * @param File $cin_recto_file
+     */
+    public function setCinRectoFile(File $cin_recto_file): void
+    {
+        $this->cin_recto_file = $cin_recto_file;
+        if ($this->cin_recto_file instanceof  UploadedFile){
+            $this->setUpdatedAt(new  \DateTime());
+        }
+    }
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $cin_verso;
+    /**
+     * @var File
+     * @Vich\UploadableField (mapping="cin_verso_image", fileNameProperty="cin_verso")
+     */
+    private  $cin_verso_file;
 
+    /**
+     * @return File
+     */
+    public function getCinVersoFile(): ?File
+    {
+        return $this->cin_verso_file;
+    }
+
+    /**
+     * @param File $cin_verso_file
+     */
+    public function setCinVersoFile(File $cin_verso_file): void
+    {
+        $this->cin_verso_file = $cin_verso_file;
+        if ($this->cin_verso_file instanceof UploadedFile){
+            $this->setUpdatedAt(new  \DateTime());
+        }
+    }
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $address;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $certificat;
+    /**
+     * @var File
+     * @Vich\UploadableField (mapping="certificat_image", fileNameProperty="certificat")
+     */
+    private  $certificat_file;
 
+    /**
+     * @return File
+     */
+    public function getCertificatFile(): ?File
+    {
+        return $this->certificat_file;
+    }
+
+    /**
+     * @param File $certificat_file
+     */
+    public function setCertificatFile(File $certificat_file): void
+    {
+        $this->certificat_file = $certificat_file;
+        if ($this->certificat_file instanceof UploadedFile){
+            $this->setUpdatedAt(new \DateTime());
+        }
+    }
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
@@ -69,10 +140,6 @@ class Persons
      */
     private $corporations;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Depots::class, mappedBy="person")
-     */
-    private $depots;
 
     /**
      * @ORM\OneToMany(targetEntity=Retraits::class, mappedBy="person")
@@ -84,11 +151,17 @@ class Persons
      */
     private $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Depots::class, mappedBy="persons")
+     */
+    private $depots;
+
+
     public function __construct()
     {
         $this->corporations = new ArrayCollection();
-        $this->depots = new ArrayCollection();
         $this->retraits = new ArrayCollection();
+        $this->depots = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -234,32 +307,8 @@ class Persons
         return $this;
     }
 
-    /**
-     * @return Collection|Depots[]
-     */
-    public function getDepots(): Collection
-    {
-        return $this->depots;
-    }
 
-    public function addDepot(Depots $depot): self
-    {
-        if (!$this->depots->contains($depot)) {
-            $this->depots[] = $depot;
-            $depot->addPerson($this);
-        }
 
-        return $this;
-    }
-
-    public function removeDepot(Depots $depot): self
-    {
-        if ($this->depots->removeElement($depot)) {
-            $depot->removePerson($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Retraits[]
@@ -302,4 +351,36 @@ class Persons
 
         return $this;
     }
+
+    /**
+     * @return Collection|Depots[]
+     */
+    public function getDepots(): Collection
+    {
+        return $this->depots;
+    }
+
+    public function addDepot(Depots $depot): self
+    {
+        if (!$this->depots->contains($depot)) {
+            $this->depots[] = $depot;
+            $depot->setPersons($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepot(Depots $depot): self
+    {
+        if ($this->depots->removeElement($depot)) {
+            // set the owning side to null (unless already changed)
+            if ($depot->getPersons() === $this) {
+                $depot->setPersons(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
