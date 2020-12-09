@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des dépots {% endblock %}
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <div class="row text-center">
+                <div class="col-lg-4">
+                    {% if not personel %}
+                       <p>Au nom de :  {{ corporations.socialReason }}</p>
+                        <p>Responsable : {{ persons.name }} </p>
+                    {% else %}
+                        Nom du personne : {{ persons.name }}
+                    {% endif %}
+                </div>
+                <div class="col-lg-4">Identité : {{ persons.identity }}</div>
+                <div class="col-lg-4">
+                    {% if personel %}
+                    <a href="{{ path("depot_new", {'id':persons.id, 'id_morale':0}) }}" class="btn btn-outline-primary">Nouveau dépot</a>
+                    {% else  %}
+                    <a href="{{ path("depot_new", {'id':persons.id, 'id_morale':corporations.id}) }}" class="btn btn-outline-primary">Nouveau dépot</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+        {% if empty == true %}
+            <p class="text-center">Aucune dépot éffectué</p>
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                    <th>Début</th><th>Fond déposé</th><th>Pièce d'obtention</th><th>Délai</th><th>Taux</th><th>Capitaux</th><th></th>
+                </thead>
+                <tbody>
+                {% for depot in depots %}
+                 <tr>
+                     <td>{{ depot.createdAt | date('d/Y/M') }}</td>
+                     <td>{{ depot.fund.value }}</td>
+                     <td><a class="btn-sm btn-primary" href="/images/piece_obtaining/{{ depot.fund.pieceObtaining }}">Afficher</a> </td>
+                     <td>{{ depot.fund.duration }}</td>
+                     <td>{{ depot.taux }}</td>
+                     <td>{{ depot.capitaux }}</td>
+                     <td><a class="btn-sm btn-danger" >Rétirer</a> </td>
+                 </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dépot{% endblock %}
+{% block body %}
+    <div id ="message_person_register">
+        {% if success is defined  %}
+            <div class="alert alert-success text-center">{{ success }}</div>
+        {% endif %}
+    </div>
+    <div id="new_depot">
+        {% if form is defined  %}
+            {{ form_start(form) }}
+            {{form_widget(form) }}
+            <div class="form-group m-2 text-center">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+            {{ form_end(form) }}
+        {% endif %}
+    </div>
+{% endblock %}

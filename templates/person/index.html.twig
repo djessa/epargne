@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="container mt-2 p-2">
+		<table class="table table-primary text-center">
+			<thead>
+				<tr>
+					<th>Personne</th>
+					<th>Association(s)</th>
+					<th>Dépot(s)</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for person in persons %}
+					<tr>
+						<td><a class="btn btn-primary" href="{{ path("show", {'id':person.id}) }}">N°CIN: {{ person.identity }}</a></td>
+						<td><a class="btn btn-warning mr-2" href="{{ path("person_corporation", {'id':person.id}) }}">Voir la liste</a></td>
+						<td><a class="btn btn-success mr-2" href="{{ path("depot", {'id':person.id, 'id_morale':0}) }}">Voir la liste</a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

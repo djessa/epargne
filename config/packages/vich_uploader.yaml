@@ -1,0 +1,22 @@
+vich_uploader:
+    db_driver: orm
+    mappings :
+        cin_recto_image:
+            uri_prefix: /cin_recto
+            upload_destination: '%kernel.project_dir%/public/images/cin_recto'
+        cin_verso_image:
+            uri_prefix: /cin_verso
+            upload_destination: '%kernel.project_dir%/public/images/cin_verso'
+        certificat_image:
+            uri_prefix: /certificat
+            upload_destination: '%kernel.project_dir%/public/images/certificat'
+        piece_person_image:
+            uri_prefix: /piece_person
+            upload_destination: '%kernel.project_dir%/public/images/piece_person'
+        piece_obtaining_image:
+            uri_prefix: /piece_obtaining
+            upload_destination: '%kernel.project_dir%/public/images/piece_obtaining'
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'

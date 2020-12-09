@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="card mt-2">
+        <div class="card-header">
+            <div class="row text-center">
+                <div class="col-lg-4">Nom du personne : {{ person.name }}</div>
+                <div class="col-lg-4">Identité : {{ person.identity }}</div>
+                <div class="col-lg-4">
+                    <a href="{{ path('person_corporation_register', {'id': person.id}) }}" class="btn btn-primary">Nouveau personne morale</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if empty == true %}
+                <p class="text-center">Aucune personne morale associé</p>
+            {% else %}
+                <table class="table table-primary">
+                    <thead>
+                    <th>Raison sociale</th><th>Adresse</th><th>Pièce d'autorité</th><th></th>
+                    </thead>
+                    <tbody>
+                    {% for corporation in corporations %}
+                        <tr>
+                            <td>{{ corporation.socialReason }}</td>
+                            <td>{{ corporation.address }}</td>
+                            <td><a class="btn-sm btn-primary" href="/images/piece_person/{{ corporation.piecePerson }}">Afficher</a> </td>
+                            <td><a class="btn-sm btn-success mr-2" href="{{ path("depot", {'id':person.id, 'id_morale':corporation.id}) }}">Dépot(s)</a>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
