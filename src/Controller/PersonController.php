@@ -73,11 +73,13 @@ class PersonController extends AbstractController
             $entityManager->persist($corporation);
             $entityManager->flush();
             return $this->render('person/corporation_register.html.twig', [
-                'success' => 'Une personne morale a bien été enregistré avec succès'
+                'success' => 'Une personne morale a bien été enregistré avec succès',
+                'persons' => $persons
             ]);
         }
         return $this->render('person/corporation_register.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'persons' => $persons
         ]);
     }
     /**

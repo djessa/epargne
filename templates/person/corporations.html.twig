@@ -1,41 +1,43 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	<div class="m-2">
+	<div class="container">
 		<a href="{{ path('person_corporation_register', {'id':persons.id}) }}" class="mb-2 btn btn-primary float-right">Ajouter un personne  morale</a>
-		{% if empty == true %}
-			<p class="text-center">Aucune personne morale associé</p>
-		{% else %}
-			<p class="text-center">
-				<strong>Personne :</strong>
-				{{ persons.name }}
-				<strong>N°CIN    :</strong>
-				{{ persons.identity }}
-			</p>
-			<table class="table table-info text-center">
-				<thead>
+		<p class="text-center"></p>
+		<p>
+			<strong>Personne :</strong>
+			{{ persons.name }}</p>
+		<p>
+			<strong>N°CIN :</strong>
+			{{ persons.identity }}</p>
+	</p>
+	{% if empty == true %}
+		<p class="text-center text-danger">
+			Aucune personne morale associé</p>
+	{% else %}
+		<table class="table table-info text-center">
+			<thead>
+				<tr>
+					<th>Raison sociale</th>
+					<th>Adresse</th>
+					<th>Pièce</th>
+					<th>Dépot(s)</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for corporation in corporations %}
 					<tr>
-						<th>Raison sociale</th>
-						<th>Adresse</th>
-						<th>Pièce</th>
-						<th>Dépot(s)</th>
+						<td>{{ corporation.socialReason }}</td>
+						<td>{{ corporation.address }}</td>
+						<td>
+							<a href="/images/piece_person/{{ corporation.piecePerson }}" class="btn-sm btn-primary">Aperçu</a>
+						</td>
+						<td>
+							<a href="{{ path('depot', {'id':persons.id, 'id_morale':corporation.id})}}" class="btn-sm btn-success mr-2" href="">Voir la liste</a>
+						</td>
 					</tr>
-				</thead>
-				<tbody>
-					{% for corporation in corporations %}
-						<tr>
-							<td>{{ corporation.socialReason }}</td>
-							<td>{{ corporation.address }}</td>
-							<td>
-								<a href="/images/piece_person/{{ corporation.piecePerson }}" class="btn-sm btn-primary">Aperçu</a>
-							</td>
-							<td>
-								<a class="btn-sm btn-success mr-2" href="">Voir la liste</a>
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+				{% endfor %}
+			</tbody>
+		</table>
 
-		{% endif %}
-	</div>
-{% endblock %}
+	{% endif %}
+</div>{% endblock %}
