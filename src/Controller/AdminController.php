@@ -27,6 +27,14 @@ class AdminController extends AbstractController
      */
     public function new_rate(EntityManagerInterface $entityManager): Response
     {
+        $rate = new Rates();
+        $rate->setYear(2020)
+            ->setMonth('December')
+            ->setValueOfOne(8.6)
+            ->setValueOfTwo(10.2)
+            ->setValueOfThree(11.3);
+        $entityManager->persist($rate);
+        $entityManager->flush();
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
         ]);

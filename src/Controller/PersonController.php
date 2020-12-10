@@ -40,9 +40,7 @@ class PersonController extends AbstractController
         if ($person_form->isSubmitted() && $person_form->isValid()) {
             $entityManager->persist($person);
             $entityManager->flush();
-            return $this->render('person/register.html.twig', [
-                'success' => 'Une personne a bien été enregistré avec succès'
-            ]);
+            return $this->redirectToRoute('person_corporation', ['id' => $person->getId(), 'id_morale' => 0]);
         }
         return $this->render('person/register.html.twig', [
             'form' => $person_form->createView()
@@ -72,10 +70,7 @@ class PersonController extends AbstractController
             $corporation->setPerson($persons);
             $entityManager->persist($corporation);
             $entityManager->flush();
-            return $this->render('person/corporation_register.html.twig', [
-                'success' => 'Une personne morale a bien été enregistré avec succès',
-                'persons' => $persons
-            ]);
+            return $this->redirectToRoute('person_corporation', ['id' => $persons->getId(), 'id_morale' => $corporation->getId()]);
         }
         return $this->render('person/corporation_register.html.twig', [
             'form' => $form->createView(),

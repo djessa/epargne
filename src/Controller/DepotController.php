@@ -70,10 +70,7 @@ class DepotController extends AbstractController
             $entityManager->persist($fund);
             $entityManager->persist($depot);
             $entityManager->flush();
-            return $this->render(
-                'depot/new.html.twig',
-                ['success' => 'Un fond a bien été déposé']
-            );
+            return $this->redirectToRoute('depot', ['id' => $persons->getId(), 'id_morale' => $corporations->getId()]);
         }
         return $this->render(
             'depot/new.html.twig',
