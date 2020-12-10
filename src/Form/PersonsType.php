@@ -15,16 +15,15 @@ class PersonsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('nationality')
-            ->add('identity')
-            ->add('cin_recto_file', FileType::class)
-            ->add('cin_verso_file', FileType::class)
-            ->add('address')
-            ->add('certificat_file', FileType::class)
-            ->add('tel', TelType::class)
-            ->add('email', EmailType::class)
-        ;
+            ->add('name', null, ['label' => 'Nom et prénom'])
+            ->add('nationality', null, ['label' => "Nationalité"])
+            ->add('identity', null, ['label' => 'Numéro d\'identité'])
+            ->add('cin_recto_file', FileType::class, ['label' => 'CIN recto'])
+            ->add('cin_verso_file', FileType::class, ['label' => 'CIN verso'])
+            ->add('address', null, ['label' => 'Adresse exacte'])
+            ->add('certificat_file', FileType::class, ['label' => 'Certificat'])
+            ->add('tel', TelType::class, ['label' => 'Téléphone'])
+            ->add('email', EmailType::class, ['label' => 'Email']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

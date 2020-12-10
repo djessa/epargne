@@ -11,10 +11,11 @@
 		</head>
 		<body>
 			{% include 'nav.html.twig' %}
-			<main class="container-fluid"> {% block body %}{% endblock %}
-				</main>
-				{% block javascripts %}
-					<script src="/js/bootstrap.bundle.min.js"></script>
-				{% endblock %}
-			</body>
-		</html>
+			<main>
+				{% block body %}{% endblock %}
+			</main>
+			{% block javascripts %}
+				<script src="/js/bootstrap.bundle.min.js"></script>
+			{% endblock %}
+		</body>
+	</html>

@@ -1,41 +1,39 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="container">
-        <div class="row show">
-            <div class="col info-text">
-                <div class="c-section">
-                     <strong class="mr-2">Nom et prénom : </strong> {{ persons.name }}
-                </div>
-                <div class="c-section">
-                    <strong class="mr-2">Numéro d'identité : </strong> {{ persons.identity }}
-                </div>
-                <div class="c-section">
-                    <strong class="mr-2">Nationalité : </strong> {{ persons.nationality }}
-                </div>
-                <div class="c-section">
-                    <strong class="mr-2">Adresse : </strong> {{ persons.address }}
-                </div>
-                <div class="c-section">
-                    <strong class="mr-2">Téléphone : </strong> {{ persons.tel }}
-                </div>
-                <div class="c-section">
-                    <strong class="mr-2">Email : </strong> {{ persons.email }}
-                </div>
-            </div>
-            <div class="col info-file">
-                <div class="i-section">
-                    <h6 class="flex">CIN recto</h6>
-                    <a href="/images/cin_recto/{{ persons.cinRecto }}"><img class="img-fluid rounded card-img" src="/images/cin_recto/{{ persons.cinRecto }}"></a>
-                </div>
-                <div class="i-section">
-                    <h6 class="flex">CIN verso</h6>
-                    <a href="/images/cin_verso/{{ persons.cinVerso }}"><img class=" img-fluid" src="/images/cin_verso/{{ persons.cinVerso }}"></a>
-                </div>
-                <div class="i-section">
-                    <h6 class="flex">Certificat</h6>
-                    <a href="/images/certificat/{{ persons.certificat }}"><img class=" img-fluid" src="/images/certificat/{{ persons.certificat }}"></a>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="m-2">
+		<div class="row">
+			<div class="col-lg-4 col-md-4">
+				<div class="form-group">
+					<label>Nom et prénom</label>
+					<input type="text" class="form-control" value="{{ persons.name }}">
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<label>Nationalité</label>
+				<input type="text" class="form-control" value="{{ persons.nationality }}">
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<label>Adresse</label>
+				<input type="text" class="form-control" value="{{ persons.address }}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-4">
+				<label>Numéro d'identité</label>
+				<input type="text" class="form-control" value="{{ persons.identity }}">
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<label>Téléphone</label>
+				<input type="text" class="form-control" value="{{ persons.tel }}"></div>
+			<div class="col-lg-4 col-md-4">
+				<label>Email</label>
+				<input type="text" class="form-control" value="{{ persons.email }}"></div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-4"></div>
+			<div class="col-lg-4 col-md-4"></div>
+			<div class="col-lg-4 col-md-4"></div>
+
+		</div>
+	</div>
 {% endblock %}

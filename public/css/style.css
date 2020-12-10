@@ -14,14 +14,14 @@ body {
     }
 }
 form[name="persons"]{
-    width: 96%;
+    width: 90%;
     height: auto;
     margin: auto;
     padding: 12px;
-    color: white;
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.7);
+    border-radius:5px;
+    background: rgba(216, 135, 185, 0.7);
 }
+
 form[name="corporations"]{
     width: 32%;
     height: auto;
@@ -33,18 +33,12 @@ form[name="corporations"]{
 }
 form[name="persons"] input {
     outline:none;
-    border-top: none;
-    border-right: none;
-    border-left: none;
     box-sizing: border-box;
     font-weight: bold;
     padding: 10px 6px;
     background:transparent;
-    color: white;
 }
 #message_person_register {
-    height:50px;
     width: 90%;
     margin: auto;
-    margin-bottom:10px;
 }
