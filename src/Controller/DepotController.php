@@ -6,9 +6,11 @@ use App\Entity\Corporations;
 use App\Entity\Depots;
 use App\Entity\Funds;
 use App\Entity\Persons;
+use App\Entity\Retraits;
 use App\Form\FundsType;
 use App\Repository\DepotsRepository;
 use App\Repository\RatesRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +24,6 @@ class DepotController extends AbstractController
      */
     public function index(Persons $persons, $id_morale, DepotsRepository $depotsRepository): Response
     {
-        $empty = false; // ici on espère que la table n'est pas vide , s'il est vide on va mettre ce var à true
         $proprietaire = [];
         $proprietaire['name'] = $persons->getName();
         $proprietaire['id'] = $persons->getId();
@@ -35,14 +36,13 @@ class DepotController extends AbstractController
         }
         $depots = $depotsRepository->findBy(['persons' => $persons, 'corporations' => $corporations]);
         if (empty($depots)) {
-            $empty = true;
+            return $this->render('depot/index.html.twig', ['empty' => true]);
         }
         return $this->render(
             'depot/index.html.twig',
             [
                 'proprietaire' => $proprietaire,
                 'depots' => $depots,
-                'empty' => $empty,
             ]
         );
     }
@@ -72,9 +72,45 @@ class DepotController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('depot', ['id' => $persons->getId(), 'id_morale' => $corporations->getId()]);
         }
+        $proprietaire = [];
+        $proprietaire['name'] = $persons->getName();
+        $proprietaire['id'] = $persons->getId();
+        $proprietaire['corporation'] = 0;
+        $repo = $this->getDoctrine()->getRepository(Corporations::class);
+        if ($id_morale != 0) {
+            $corporations = $repo->find($id_morale);
+            $proprietaire['corporation'] = $corporations->getId();
+            $proprietaire['name'] = $corporations->getSocialReason();
+        }
         return $this->render(
             'depot/new.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $form->createView(), 'proprietaire' => $proprietaire]
         );
+    }
+    /**
+     * @Route("/{id}/remove", name="remove")
+     */
+    public function remove(Depots $depots, EntityManagerInterface $entityManagerInterface, Request $request)
+    {
+        if (!empty($_POST['person_id'])) {
+            $year =  (int)$depots->getCreatedAt()->format('Y');
+            $month =  (int) $depots->getCreatedAt()->format('m');
+            $day = (int)$depots->getCreatedAt()->format('d');
+            $time = mktime(null, null, null, $month, $day, $year);
+            $fund = $depots->getFund();
+            $time += $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60;
+            if (time() < $time) {
+                $date = date('d/m/Y', $time);
+                return $this->render('depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat , notament sur le delai', 'date' => $date]);
+            }
+            $retrait = new Retraits();
+            $retrait->setCreatedAt(new \DateTime());
+            $retrait->setFund($fund);
+            $retrait->setPerson($depots->getPersons());
+            $entityManagerInterface->persist($retrait);
+            $entityManagerInterface->flush();
+            return $this->redirectToRoute('person');
+        }
+        return $this->render('depot/retrait.html.twig', compact('depots'));
     }
 }

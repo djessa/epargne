@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<div class="container">
-		<a href="{{ path('person_corporation_register', {'id':persons.id}) }}" class="mb-2 btn btn-primary float-right">Ajouter un personne  morale</a>
+		<a href="{{ path('person_corporation_register', {'id':persons.id}) }}" class="mb-2 btn btn-warning float-right">Ajouter un personne  morale</a>
 		<p class="text-center"></p>
 		<p>
 			<strong>Personne :</strong>
@@ -14,7 +14,7 @@
 		<p class="text-center text-danger">
 			Aucune personne morale associé</p>
 	{% else %}
-		<table class="table table-info text-center">
+		<table class="table table-secondary text-center">
 			<thead>
 				<tr>
 					<th>Raison sociale</th>

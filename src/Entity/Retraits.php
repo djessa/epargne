@@ -27,7 +27,6 @@ class Retraits
      * @ORM\JoinColumn(nullable=false)
      */
     private $person;
-
     /**
      * @ORM\OneToOne(targetEntity=Funds::class, inversedBy="retraits", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)

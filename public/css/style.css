@@ -19,7 +19,7 @@ form[name="persons"]{
     margin: auto;
     padding: 12px;
     border-radius:5px;
-    background: rgba(216, 135, 185, 0.7);
+    background: rgba(230, 11, 146, 0.8);
 }
 
 form[name="corporations"]{
@@ -38,4 +38,10 @@ form[name="persons"] input {
 #message_person_register {
     width: 90%;
     margin: auto;
+}
+#new_depot form {
+    margin-top: 20px;
+    border-radius: 5px;
+    background: rgba(236, 39, 161, 0.7);
+    padding: 9px;
 }

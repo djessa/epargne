@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<div class="container">
-		<a href="{{ path('depot_new', {'id':proprietaire.id, 'id_morale':proprietaire.corporation}) }}" class="mb-2 btn btn-primary float-right">Ajouter un nouveau contrat</a>
+		<a href="{{ path('depot_new', {'id':proprietaire.id, 'id_morale':proprietaire.corporation}) }}" class="mb-2 btn btn-success float-right">Ajouter un nouveau contrat</a>
 		<p class="text-center"></p>
 		<strong>Au nom de  :</strong>
 		{{ proprietaire.name }}
 	</p>
-	{% if empty == true %}
+	{% if empty is defined %}
 		<p class="text-center text-danger m-5">
 			Aucune dépot effectuée</p>
 	{% else %}
-		<table class="table table-info text-center">
+		<table class="table table-dark text-center">
 			<thead>
 				<tr>
 					<th>Début</th>
@@ -34,7 +34,7 @@
 						<td>{{ depot.taux }}</td>
 						<td>{{ depot.capitaux }}</td>
 						<td>
-							<a class="btn-sm btn-danger">Rétirer</a>
+							<a class="btn-sm btn-danger" href="{{ path('remove', {'id':depot.id})}}">Rétirer</a>
 						</td>
 					</tr>
 				{% endfor %}
