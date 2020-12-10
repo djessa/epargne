@@ -4,18 +4,23 @@ vich_uploader:
         cin_recto_image:
             uri_prefix: /cin_recto
             upload_destination: '%kernel.project_dir%/public/images/cin_recto'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
         cin_verso_image:
             uri_prefix: /cin_verso
             upload_destination: '%kernel.project_dir%/public/images/cin_verso'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
         certificat_image:
             uri_prefix: /certificat
             upload_destination: '%kernel.project_dir%/public/images/certificat'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
         piece_person_image:
             uri_prefix: /piece_person
             upload_destination: '%kernel.project_dir%/public/images/piece_person'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
         piece_obtaining_image:
             uri_prefix: /piece_obtaining
             upload_destination: '%kernel.project_dir%/public/images/piece_obtaining'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
     #mappings:
     #    products:
     #        uri_prefix: /images/products

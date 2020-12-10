@@ -1,7 +1,14 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<style>
+		input {
+			background: blue;
+		}
+	</style>
+{% endblock %}
 {% block body %}
 	<div class="m-2">
-		<div class="row">
+		<div class="row text-center m-2">
 			<div class="col-lg-4 col-md-4">
 				<div class="form-group">
 					<label>Nom et prénom</label>
@@ -17,7 +24,7 @@
 				<input type="text" class="form-control" value="{{ persons.address }}">
 			</div>
 		</div>
-		<div class="row">
+		<div class="row text-center m-2">
 			<div class="col-lg-4 col-md-4">
 				<label>Numéro d'identité</label>
 				<input type="text" class="form-control" value="{{ persons.identity }}">
@@ -29,10 +36,19 @@
 				<label>Email</label>
 				<input type="text" class="form-control" value="{{ persons.email }}"></div>
 		</div>
-		<div class="row">
-			<div class="col-lg-4 col-md-4"></div>
-			<div class="col-lg-4 col-md-4"></div>
-			<div class="col-lg-4 col-md-4"></div>
+		<div class="row text-center m-3">
+			<div class="col-lg-4 col-md-4">
+				<label>CIN recto</label>
+				<a href="/images/cin_recto/{{ persons.cinRecto}}"><img class="img-fluid rounded" src="/images/cin_recto/{{ persons.cinRecto}}" alt="CIN recto" width="360"></a>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<label>CIN verso</label>
+				<a href="/images/cin_verso/{{ persons.cinVerso}}"><img class="img-fluid rounded" src="/images/cin_verso/{{ persons.cinVerso}}" alt="CIN verso" width="360"></a>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<label>Certificat</label>
+				<a href="/images/cin_recto/{{ persons.cinRecto}}"><img class="img-fluid rounded" src="/images/cin_recto/{{ persons.cinRecto}}" alt="CIN recto" width="360"></a>
+			</div>
 
 		</div>
 	</div>
