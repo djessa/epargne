@@ -40,7 +40,7 @@ class PersonController extends AbstractController
         if ($person_form->isSubmitted() && $person_form->isValid()) {
             $entityManager->persist($person);
             $entityManager->flush();
-            return $this->redirectToRoute('person_corporation', ['id' => $person->getId(), 'id_morale' => 0]);
+            return $this->redirectToRoute('person');
         }
         return $this->render('person/register.html.twig', [
             'form' => $person_form->createView()

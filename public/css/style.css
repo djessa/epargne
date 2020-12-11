@@ -42,6 +42,6 @@ form[name="persons"] input {
 #new_depot form {
     margin-top: 20px;
     border-radius: 5px;
-    background: rgba(236, 39, 161, 0.7);
+    background: rgba(236, 39, 160, 0.158);
     padding: 9px;
 }

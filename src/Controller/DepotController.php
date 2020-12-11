@@ -36,7 +36,13 @@ class DepotController extends AbstractController
         }
         $depots = $depotsRepository->findBy(['persons' => $persons, 'corporations' => $corporations]);
         if (empty($depots)) {
-            return $this->render('depot/index.html.twig', ['empty' => true]);
+            return $this->render(
+                'depot/index.html.twig',
+                [
+                    'empty' => true,
+                    'proprietaire' => $proprietaire
+                ]
+            );
         }
         return $this->render(
             'depot/index.html.twig',
@@ -70,7 +76,7 @@ class DepotController extends AbstractController
             $entityManager->persist($fund);
             $entityManager->persist($depot);
             $entityManager->flush();
-            return $this->redirectToRoute('depot', ['id' => $persons->getId(), 'id_morale' => $corporations->getId()]);
+            return $this->redirectToRoute('depot', ['id' => $persons->getId(), 'id_morale' => $id_morale]);
         }
         $proprietaire = [];
         $proprietaire['name'] = $persons->getName();
