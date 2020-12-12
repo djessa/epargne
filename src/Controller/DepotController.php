@@ -9,6 +9,7 @@ use App\Entity\Persons;
 use App\Entity\Retraits;
 use App\Form\FundsType;
 use App\Repository\DepotsRepository;
+use App\Repository\PersonsRepository;
 use App\Repository\RatesRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -96,7 +97,7 @@ class DepotController extends AbstractController
     /**
      * @Route("/{id}/remove", name="remove")
      */
-    public function remove(Depots $depots, EntityManagerInterface $entityManagerInterface, Request $request)
+    public function remove(Depots $depots, EntityManagerInterface $entityManagerInterface, Request $request, PersonsRepository $personsRepository)
     {
         if (!empty($_POST['person_id'])) {
             $year =  (int)$depots->getCreatedAt()->format('Y');
@@ -107,12 +108,16 @@ class DepotController extends AbstractController
             $time += $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60;
             if (time() < $time) {
                 $date = date('d/m/Y', $time);
-                return $this->render('depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat , notament sur le delai', 'date' => $date]);
+                return $this->render('depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat , notament sur le delai.', 'date' => $date]);
             }
             $retrait = new Retraits();
             $retrait->setCreatedAt(new \DateTime());
             $retrait->setFund($fund);
-            $retrait->setPerson($depots->getPersons());
+            $persons = $personsRepository->findBy(['identity' => $_POST['person_id']]);
+            if (empty($persons)) {
+                return $this->render('depot/error.html.twig', ['message' => 'Cette personne doit s\'inscrire parce qu\'il n\'est pas connu']);
+            }
+            $retrait->setPerson($persons[0]);
             $entityManagerInterface->persist($retrait);
             $entityManagerInterface->flush();
             return $this->redirectToRoute('person');
