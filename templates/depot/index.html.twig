@@ -26,13 +26,17 @@
 				{% for depot in depots %}
 					<tr>
 						<td>{{ depot.createdAt | date('d/m/Y') }}</td>
-						<td>{{ depot.fund.value }}</td>
+						<td>{{ depot.fund.value }}
+							MGA</td>
 						<td>
 							<a class="btn-sm btn-primary" href="/images/piece_obtaining/{{ depot.fund.pieceObtaining }}">Afficher</a>
 						</td>
-						<td>{{ depot.fund.duration }}</td>
-						<td>{{ depot.taux }}</td>
-						<td>{{ depot.capitaux }}</td>
+						<td>{{ depot.fund.duration }}
+							ans</td>
+						<td>{{ depot.taux }}
+							%</td>
+						<td>{{ depot.capitaux }}
+							MGA</td>
 						<td>
 							<a class="btn-sm btn-danger" href="{{ path('remove', {'id':depot.id})}}">Rétirer</a>
 						</td>
