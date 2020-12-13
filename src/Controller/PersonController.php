@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
 
 class PersonController extends AbstractController
 {
@@ -26,6 +27,12 @@ class PersonController extends AbstractController
         if (empty($persons)) {
             $empty = true;
             return $this->render('person/index.html.twig', compact('empty'));
+        }
+        if (!empty($_GET['q'])) {
+            $q = htmlentities($_GET['q']);
+            if (is_numeric($q) && strlen($_GET['q']) == 12) {
+                $persons = $personRepository->findBy(['identity' => $q]);
+            }
         }
         return $this->render('person/index.html.twig', compact('persons'));
     }
