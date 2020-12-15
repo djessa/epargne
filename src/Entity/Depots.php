@@ -114,11 +114,9 @@ class Depots
         $funds = $this->getFund();
         $taux = $funds->getRate();
         if ($funds->getDuration() == 1)
-            return  $funds->getValue()+ ($funds->getValue()*$taux->getValueOfOne())/100;
+            return  $funds->getValue() + ($funds->getValue() * $taux->getValueOfOne()) / 100;
         if ($funds->getDuration() == 2)
-            return  $funds->getValue()+ ($funds->getValue()*$taux->getValueOfTwo())/100;
-        return  $funds->getValue()+ ($funds->getValue()*$taux->getValueOfThree())/100;
+            return  $funds->getValue() + ($funds->getValue() * $taux->getValueOfTwo()) / 100;
+        return  $funds->getValue() + ($funds->getValue() * $taux->getValueOfThree()) / 100;
     }
-
-    
 }

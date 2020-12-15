@@ -23,7 +23,7 @@ class PersonController extends AbstractController
      */
     public function  index(PersonsRepository $personRepository)
     {
-        $persons = $personRepository->findAll();
+        $persons = $personRepository->findBy([], ['id' => 'desc']);
         if (empty($persons)) {
             $empty = true;
             return $this->render('person/index.html.twig', compact('empty'));
@@ -58,7 +58,7 @@ class PersonController extends AbstractController
      */
     public  function  corporation(Persons $persons, CorporationsRepository $corporationsRepository): Response
     {
-        $corporations = $corporationsRepository->findBy(['person' => $persons]);
+        $corporations = $corporationsRepository->findBy(['person' => $persons], ['id' => 'desc']);
         $empty = false;
         if (empty($corporations)) {
             $empty = true;

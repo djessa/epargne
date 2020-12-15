@@ -18,7 +18,7 @@ class Retraits
     private $id;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="datetime")
      */
     private $created_at;
 

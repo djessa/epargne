@@ -38,7 +38,17 @@
 						<td>{{ depot.capitaux }}
 							MGA</td>
 						<td>
-							<a class="btn-sm btn-danger" href="{{ path('remove', {'id':depot.id})}}">Rétirer</a>
+							{% if retraits is  empty %}
+								<a class="btn-sm btn-danger" href="{{ path('remove', {'id':depot.id})}}">Rétirer</a>
+
+							{% endif %}
+							{% for retrait in retraits %}
+								{% if retrait.fund.id == depot.fund.id %}
+									<a class="btn-sm btn-secondary" href="{{ path('show_retrait', {'id':retrait.id})}}">Déja retiré</a>
+								{% else %}
+									<a class="btn-sm btn-danger" href="{{ path('remove', {'id':depot.id})}}">Rétirer</a>
+								{% endif %}
+							{% endfor %}
 						</td>
 					</tr>
 				{% endfor %}

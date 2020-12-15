@@ -11,6 +11,7 @@ use App\Form\FundsType;
 use App\Repository\DepotsRepository;
 use App\Repository\PersonsRepository;
 use App\Repository\RatesRepository;
+use App\Repository\RetraitsRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,7 @@ class DepotController extends AbstractController
     /**
      * @Route("{id}/{id_morale}/depot", name="depot")
      */
-    public function index(Persons $persons, $id_morale, DepotsRepository $depotsRepository): Response
+    public function index(Persons $persons, $id_morale, DepotsRepository $depotsRepository, RetraitsRepository $retraitsRepository): Response
     {
         $proprietaire = [];
         $proprietaire['name'] = $persons->getName();
@@ -35,7 +36,7 @@ class DepotController extends AbstractController
             $proprietaire['name'] = $corporations->getSocialReason();
             $proprietaire['corporation'] = $corporations->getId();
         }
-        $depots = $depotsRepository->findBy(['persons' => $persons, 'corporations' => $corporations]);
+        $depots = $depotsRepository->findBy(['persons' => $persons, 'corporations' => $corporations], ['id' => 'desc']);
         if (empty($depots)) {
             return $this->render(
                 'depot/index.html.twig',
@@ -45,11 +46,13 @@ class DepotController extends AbstractController
                 ]
             );
         }
+        $retraits = $retraitsRepository->findAll();
         return $this->render(
             'depot/index.html.twig',
             [
                 'proprietaire' => $proprietaire,
                 'depots' => $depots,
+                'retraits' => $retraits
             ]
         );
     }
@@ -120,8 +123,25 @@ class DepotController extends AbstractController
             $retrait->setPerson($persons[0]);
             $entityManagerInterface->persist($retrait);
             $entityManagerInterface->flush();
-            return $this->redirectToRoute('person');
+            $id_morale =  0;
+            if ($depots->getCorporations() != null) {
+                $id_morale = $depots->getCorporations()->getId();
+            }
+            return $this->redirectToRoute(
+                'depot',
+                [
+                    'id' => $depots->getPersons()->getId(),
+                    'id_morale' => $id_morale
+                ]
+            );
         }
         return $this->render('depot/retrait.html.twig', compact('depots'));
+    }
+    /**
+     * @Route("/retrait/{id}", name="show_retrait")
+     */
+    public function show_retrait(Retraits $retraits)
+    {
+        return $this->render('depot/show_retrait.html.twig', compact('retraits'));
     }
 }
