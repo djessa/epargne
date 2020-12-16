@@ -15,14 +15,14 @@
 				</li>
 			</ul>
 			<form class="d-flex" action="{{ path('person')}}">
-				<input style="margin-top:3px" class="form-control mr-2 mt-6" type="search" placeholder="Tapez le numéro de la CIN" aria-label="Search" name="q" id="id">
+				<input style="margin-top:3px" class="form-control mr-2 mt-6" type="search" placeholder="Numéro de la CIN" aria-label="Search" name="q" id="id">
 				<button class="btn btn-outline-success" type="submit">
 					<span class="fas fa-search"></span>
 				</button>
-				<a class="nav-link btn btn-outline-danger ml-1" aria-current="page" href="{{ path("person_register") }}">
+			</form>
+            				<a class="nav-link btn btn-outline-danger ml-1" aria-current="page" href="{{ path("person_register") }}">
 					<span class="fas fa-power-off"></span>
 				</a>
-			</form>
 		</div>
 	</div>
 </nav>
