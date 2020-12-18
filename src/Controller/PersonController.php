@@ -7,7 +7,6 @@ use App\Entity\Persons;
 use App\Form\CorporationsType;
 use App\Form\PersonsType;
 use App\Repository\CorporationsRepository;
-use App\Repository\PersonRepository;
 use App\Repository\PersonsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,14 +19,17 @@ class PersonController extends AbstractController
 {
     /**
      * @Route ("/", name="person")
+     * C'est la route  pour la gestion des personnes
      */
     public function  index(PersonsRepository $personRepository)
     {
+        //Recupération de liste des personnes et on passe à la vue avec des opérations concérnés
         $persons = $personRepository->findBy([], ['id' => 'desc']);
         if (empty($persons)) {
             $empty = true;
             return $this->render('person/index.html.twig', compact('empty'));
         }
+        //S'il y a une recherche effectué sur la page 
         if (!empty($_GET['q'])) {
             $q = htmlentities($_GET['q']);
             if (is_numeric($q) && strlen($_GET['q']) == 12) {

@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Bienvenue sur e-digital !
+			{% block title %}
+				Bienvenue sur e-digital !
 			{% endblock %}
 		</title>
 		<link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -15,8 +16,7 @@
 			<main>
 				{% block body %}{% endblock %}
 			</main>
-			{% block javascripts %}
-				<script src="/js/bootstrap.bundle.min.js"></script>
-			{% endblock %}
+			<script src="/js/bootstrap.bundle.min.js"></script>
+			{% block javascripts %}{% endblock %}
 		</body>
 	</html>

@@ -1,58 +1,51 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Inscription
+{% block title %}
+	Inscription
 {% endblock %}
 {% block stylesheets %}
 	<link rel="stylesheet" href="/css/register.css">
 {% endblock %}
 {% block body %}
-	<div id="message_person_register">
-		{% if success is defined  %}
-			<div class="alert alert-success text-center">{{ success }}</div>
-		{% endif %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-lg-6 col-md-6">
+			{{ form_row(form.name) }}
+		</div>
+		<div class="col-lg-6 col-md-6">
+			{{ form_row(form.nationality) }}
+		</div>
 	</div>
-	{% if form is defined  %}
-		{{ form_start(form) }}
-		<div class="row">
-			<div class="col-lg-6 col-md-6">
-				{{ form_row(form.name) }}
+	<div class="row">
+		<div class="col-lg-6 col-md-6">
+			{{ form_row(form.identity) }}
+		</div>
+		<div class="col-lg-6 col-md-6">
+			{{ form_row(form.address) }}
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-lg-7 col-md-7">
+			<div>
+				{{ form_row(form.cin_recto_file) }}
 			</div>
-			<div class="col-lg-6 col-md-6">
-				{{ form_row(form.nationality) }}
+			<div>
+				{{ form_row(form.cin_verso_file) }}
+			</div>
+			<div>
+				{{ form_row(form.certificat_file) }}
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-6 col-md-6">
-				{{ form_row(form.identity) }}
+		<div class="col-lg-5 col-md-5">
+			<div>
+				{{ form_row(form.tel) }}
 			</div>
-			<div class="col-lg-6 col-md-6">
-				{{ form_row(form.address) }}
+			<div>
+				{{ form_row(form.email) }}
 			</div>
-		</div>
-		<div class="row mt-2">
-			<div class="col-lg-7 col-md-7">
-				<div>
-					{{ form_row(form.cin_recto_file) }}
-				</div>
-				<div>
-					{{ form_row(form.cin_verso_file) }}
-				</div>
-				<div>
-					{{ form_row(form.certificat_file) }}
-				</div>
-			</div>
-			<div class="col-lg-5 col-md-5">
-				<div>
-					{{ form_row(form.tel) }}
-				</div>
-				<div>
-					{{ form_row(form.email) }}
-				</div>
-				<div class="mt-5">
-					<button type="submit" class="btn btn-primary">Enregistrer</button>
-				</div>
+			<div class="mt-5">
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
 			</div>
 		</div>
-		{{ form_end(form) }}
-	{% endif %}
+	</div>
+	{{ form_end(form) }}
 {% endblock %}
