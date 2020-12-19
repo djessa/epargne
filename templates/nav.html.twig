@@ -10,13 +10,18 @@
 			<ul class="navbar-nav mr-auto mb-2 mb-md-0">
 				<li class="nav-item">
 					<a class="nav-link" aria-current="page" href="{{ path("person_register") }}" >
-						<span class="fas fa-user"></span>
-						Nouveau personne</a>
+						<span class="bi bi-person-circle"></span>
+						Ajouter une  personne</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="{{ path("person_register") }}" >
+					<a class="nav-link" aria-current="page" href="{{ path("admin_rate") }}" >
 						<span class="fas fa-percent"></span>
-						Consultation de taux</a>
+						Consulter un  taux</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" aria-current="page" href="{{ path("admin_rate_new") }}" >
+						<span class="fas fa-percent"></span>
+						Ajouter un  taux</a>
 				</li>
 			</ul>
 			<form class="d-flex" action="{{ path('person')}}">

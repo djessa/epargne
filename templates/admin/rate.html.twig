@@ -1,0 +1,108 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Consultation des taux
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header" style="height:65px;">
+                        <h6>Taux actuel</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                        <div class="col">
+                            <div class="card p-2">
+                                <div class="card-header">
+                                    Un ans
+                                </div>
+                                <div class="card-body">
+                                    {{ data.current.valueOfOne }} %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card p-2">
+                                <div class="card-header">
+                                    Deux ans
+                                </div>
+                                <div class="card-body">
+                                    {{ data.current.valueOfTwo }} %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card p-2">
+                                <div class="card-header">
+                                    Trois ans
+                                </div>
+                                <div class="card-body">
+                                    {{ data.current.valueOfThree }} %
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <form  method="post">
+                        <div class="row">
+                            <div class="col">
+                                <input type="search" placeholder="Année" name="year" id="year" class="form-control">
+                            </div>
+                            <div class="col">
+                                    <select id="month" name="month" class="form-control"><option value="January">Janvier</option><option value="February">Février</option><option value="March">Mars</option><option value="April">Avril</option><option value="Mey">Mai</option><option value="June">Juin</option><option value="July">Juillet</option><option value="August">Août</option><option value="September">Septembre</option><option value="October">Octobre</option><option value="November">Novembre</option><option value="December">Décembre</option></select>
+                            </div>
+                            <div class="col">
+                                <input type="submit" value="Chercher" class="btn btn-info">
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        {% if data.result is defined %}
+                        <div class="row">
+                            <div class="col">
+                                <div class="card p-2">
+                                    <div class="card-header">
+                                        Un ans
+                                    </div>
+                                    <div class="card-body">
+                                        {{ data.result.valueOfOne  }} %
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card p-2">
+                                    <div class="card-header">
+                                        Deux ans
+                                    </div>
+                                    <div class="card-body">
+                                        {{ data.result.valueOfOne }} %
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card p-2">
+                                    <div class="card-header">
+                                        Trois ans
+                                    </div>
+                                    <div class="card-body">
+                                        {{ data.result.valueOfOne  }} %
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

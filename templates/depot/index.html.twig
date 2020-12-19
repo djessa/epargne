@@ -14,6 +14,7 @@
 			<thead>
 				<tr>
 					<th>Début</th>
+					<th>Fin</th>
 					<th>Somme</th>
 					<th>Pièce</th>
 					<th>Délai</th>
@@ -26,6 +27,7 @@
 				{% for depot in depots %}
 					<tr>
 						<td>{{ depot.createdAt | date('d/m/Y') }}</td>
+						<td></td>
 						<td>{{ depot.fund.value }}
 							MGA</td>
 						<td>
