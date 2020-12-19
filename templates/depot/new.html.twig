@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<div class="container">
-		<a href="{{ path('depot_new', {'id':proprietaire.id, 'id_morale':proprietaire.corporation}) }}" class="mb-2 btn btn-success float-right">Ajouter un nouveau contrat</a>
 		<p class="text-center"></p>
 		<strong>Au nom de  :</strong>
 		{{ proprietaire.name }}
@@ -9,10 +8,11 @@
 
 	<div id="new_depot">
 		{{ form_start(form) }}
-		{{form_widget(form) }}
-		<div class="form-group m-2 text-center">
-			<button type="submit" class="btn btn-primary">Enregistrer</button>
-		</div>
+			{{form_widget(form) }}
+			<div class="form-group m-2 text-center">
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
+				<a href="{{ path('person') }}" class="btn btn-secondary">Retour</a>
+			</div>
 		{{ form_end(form) }}
 	</div>
 </div>{% endblock %}

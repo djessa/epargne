@@ -9,9 +9,14 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto mb-2 mb-md-0">
 				<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="{{ path("person_register") }}">
-						<span class="far fa-user"></span>
+					<a class="nav-link" aria-current="page" href="{{ path("person_register") }}" >
+						<span class="fas fa-user"></span>
 						Nouveau personne</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" aria-current="page" href="{{ path("person_register") }}" >
+						<span class="fas fa-percent"></span>
+						Consultation de taux</a>
 				</li>
 			</ul>
 			<form class="d-flex" action="{{ path('person')}}">
@@ -20,9 +25,9 @@
 					<span class="fas fa-search"></span>
 				</button>
 			</form>
-            				<a class="nav-link btn btn-outline-danger ml-1" aria-current="page" href="{{ path("person_register") }}">
-					<span class="fas fa-power-off"></span>
-				</a>
+			<a class="nav-link btn btn-outline-danger ml-1" aria-current="page" href="{{ path("person_register") }}">
+				<span class="fas fa-power-off"></span>
+			</a>
 		</div>
 	</div>
 </nav>

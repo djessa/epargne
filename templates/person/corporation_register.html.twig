@@ -1,24 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<div class="container">
-		<a href="{{ path('person_corporation_register', {'id':persons.id}) }}" class="mb-2 btn btn-primary float-right">Ajouter un personne  morale</a>
-		<p class="text-center"></p>
-		<p>
-			<strong>Personne :</strong>
-			{{ persons.name }}</p>
-		<p>
-			<strong>N°CIN :</strong>
-			{{ persons.identity }}</p>
-	</p>
-	{% if success is defined  %}
-		<div class="alert alert-success text-center">{{ success }}</div>
-	{% endif %}
-	{% if form is defined  %}
+		<p> <strong>Personne :</strong> {{ persons.name }} </p>
+		<p> <strong>N°CIN :</strong> {{ persons.identity }} </p>
 		{{ form_start(form) }}
-		{{form_widget(form) }}
-		<div class="form-group m-2">
-			<button type="submit" class="btn btn-primary">Enregistrer</button>
-		</div>
+			{{form_widget(form) }}
+			<div class="form-group m-2">
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
+				<a href="{{ path('person_corporation', {'id':persons.id}) }}" class="btn btn-secondary">Retour</a>
+			</div>
 		{{ form_end(form) }}
-	{% endif %}
 </div>{% endblock %}
