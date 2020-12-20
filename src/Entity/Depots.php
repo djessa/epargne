@@ -40,6 +40,16 @@ class Depots
      */
     private $created_at;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $end_date;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_retired;
+
 
 
     public function getId(): ?int
@@ -116,5 +126,29 @@ class Depots
         if ($funds->getDuration() == 2)
             return  $funds->getValue() + ($funds->getValue() * $taux->getValueOfTwo()) / 100;
         return  $funds->getValue() + ($funds->getValue() * $taux->getValueOfThree()) / 100;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->end_date;
+    }
+
+    public function setEndDate(?\DateTimeInterface $end_date): self
+    {
+        $this->end_date = $end_date;
+
+        return $this;
+    }
+
+    public function getIsRetired(): ?bool
+    {
+        return $this->is_retired;
+    }
+
+    public function setIsRetired(?bool $is_retired): self
+    {
+        $this->is_retired = $is_retired;
+
+        return $this;
     }
 }

@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 class DepotController extends AbstractController
 {
@@ -70,6 +71,8 @@ class DepotController extends AbstractController
             $fund->setRate($rate[0]);
             $depot = new Depots();
             $depot->setCreatedAt(new \DateTime());
+            $date = date('Y-m-d H:m:s', time() + $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60);
+            $depot->setEndDate(new DateTime($date));
             $depot->setFund($fund);
             $depot->setPersons($persons);
             if ($id_morale != 0) {
@@ -103,12 +106,11 @@ class DepotController extends AbstractController
     public function remove(Depots $depots, EntityManagerInterface $entityManagerInterface, Request $request, PersonsRepository $personsRepository)
     {
         if (!empty($_POST['person_id'])) {
-            $year =  (int)$depots->getCreatedAt()->format('Y');
-            $month =  (int) $depots->getCreatedAt()->format('m');
-            $day = (int)$depots->getCreatedAt()->format('d');
+            $year =  (int)$depots->getEndDate()->format('Y');
+            $month =  (int) $depots->getEndDate()->format('m');
+            $day = (int)$depots->getEndDate()->format('d');
             $time = mktime(null, null, null, $month, $day, $year);
             $fund = $depots->getFund();
-            $time += $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60;
             if (time() < $time) {
                 $date = date('d/m/Y', $time);
                 return $this->render('depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat , notament sur le delai.', 'date' => $date]);
@@ -121,6 +123,7 @@ class DepotController extends AbstractController
                 return $this->render('depot/error.html.twig', ['message' => 'Cette personne doit s\'inscrire parce qu\'il n\'est pas connu']);
             }
             $retrait->setPerson($persons[0]);
+            $depots->setIsRetired(true);
             $entityManagerInterface->persist($retrait);
             $entityManagerInterface->flush();
             $id_morale =  0;
@@ -138,7 +141,7 @@ class DepotController extends AbstractController
         return $this->render('depot/retrait.html.twig', compact('depots'));
     }
     /**
-     * @Route("/retrait/{id}", name="show_retrait")
+     * @Route("/retrait/{fund}", name="show_retrait")
      */
     public function show_retrait(Retraits $retraits)
     {
