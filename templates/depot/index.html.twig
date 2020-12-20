@@ -7,11 +7,11 @@
 		{{ proprietaire.name }}
 	</p>
 	{% if empty is defined %}
-		<p class="text-center text-danger m-5">
+		<p class="text-center text-info m-5">
 			Aucune dépot effectuée</p>
 	{% else %}
-		<table class="table table-dark text-center">
-			<thead>
+		<table class="table table-hover text-center">
+			<thead class="text-info">
 				<tr>
 					<th>Début</th>
 					<th>Fin</th>
@@ -23,7 +23,7 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="text-primary">
 				{% for depot in depots %}
 					<tr>
 						<td>{{ depot.createdAt | date('d/m/Y') }}</td>

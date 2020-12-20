@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\Rates;
+use App\Form\RatesType;
 use App\Repository\RatesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +19,14 @@ class RatesController extends AbstractController
     {
         $data['current'] = $ratesRepository->findOneBy(['year' => getdate()['year'], 'month' => getdate()['month']]);
         if (isset($_POST['year'], $_POST['month'])) {
-            $data['result'] = $ratesRepository->findOneBy(['year' => $_POST['year'], 'month' => $_POST['month']]);
+            $result = $ratesRepository->findOneBy(['year' => $_POST['year'], 'month' => $_POST['month']]);
+            if ($result) {
+                $data['result'] = $result;
+            } else {
+                $data['error'] = "Il n'y aucune taux pour cette periode";
+            }
         }
-        return $this->render('rates/index.html.twig', compact('data'));
+        return $this->render('rates/index.html.twig', ['data'=>$data, 'rates_nav'=>true]);
     }
 
     public function new(EntityManagerInterface $entityManager, Request $request): Response
@@ -34,6 +40,6 @@ class RatesController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('rates');
         }
-        return $this->render('rates/new.html.twig', ['form' => $form->createView(),]);
+        return $this->render('rates/new.html.twig', ['form' => $form->createView(),'rates_nav' =>true]);
     }
 }

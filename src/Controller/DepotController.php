@@ -12,7 +12,6 @@ use App\Repository\DepotsRepository;
 use App\Repository\PersonsRepository;
 use App\Repository\RatesRepository;
 use App\Repository\RetraitsRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,22 +61,19 @@ class DepotController extends AbstractController
      */
     public function new(Persons $persons, $id_morale, Request $request, EntityManagerInterface $entityManager, RatesRepository $ratesRepository): Response
     {
-        $date = getdate();
-        $rate = $ratesRepository->findBy(['month' => $date['month']]);
+       
         $fund = new Funds();
         $form = $this->createForm(FundsType::class, $fund);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $fund->setRate($rate[0]);
+            $fund->setRate($ratesRepository->findOneBy(['month' => getdate()['month'], 'year' => getdate()['year']]));
             $depot = new Depots();
             $depot->setCreatedAt(new \DateTime());
-            $date = date('Y-m-d H:m:s', time() + $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60);
-            $depot->setEndDate(new DateTime($date));
+            $depot->setEndDate(new \DateTime(date('Y-m-d H:m:s', time() + $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60)));
             $depot->setFund($fund);
             $depot->setPersons($persons);
             if ($id_morale != 0) {
-                $repo = $this->getDoctrine()->getRepository(Corporations::class);
-                $corporations = $repo->find($id_morale);
+                $corporations = $this->getDoctrine()->getRepository(Corporations::class)->find($id_morale);
                 $depot->setCorporations($corporations);
             }
             $entityManager->persist($fund);
@@ -89,9 +85,8 @@ class DepotController extends AbstractController
         $proprietaire['name'] = $persons->getName();
         $proprietaire['id'] = $persons->getId();
         $proprietaire['corporation'] = 0;
-        $repo = $this->getDoctrine()->getRepository(Corporations::class);
         if ($id_morale != 0) {
-            $corporations = $repo->find($id_morale);
+            $corporations = $this->getDoctrine()->getRepository(Corporations::class)->find($id_morale);
             $proprietaire['corporation'] = $corporations->getId();
             $proprietaire['name'] = $corporations->getSocialReason();
         }
@@ -118,11 +113,11 @@ class DepotController extends AbstractController
             $retrait = new Retraits();
             $retrait->setCreatedAt(new \DateTime());
             $retrait->setFund($fund);
-            $persons = $personsRepository->findBy(['identity' => $_POST['person_id']]);
-            if (empty($persons)) {
+            $persons = $personsRepository->findOneBy(['identity' => $_POST['person_id']]);
+            if ($persons) {
                 return $this->render('depot/error.html.twig', ['message' => 'Cette personne doit s\'inscrire parce qu\'il n\'est pas connu']);
             }
-            $retrait->setPerson($persons[0]);
+            $retrait->setPerson($persons);
             $depots->setIsRetired(true);
             $entityManagerInterface->persist($retrait);
             $entityManagerInterface->flush();
@@ -138,13 +133,13 @@ class DepotController extends AbstractController
                 ]
             );
         }
-        return $this->render('depot/retrait.html.twig', compact('depots'));
+        return $this->render('retrait/new.html.twig', compact('depots'));
     }
     /**
      * @Route("/retrait/{fund}", name="show_retrait")
      */
     public function show_retrait(Retraits $retraits)
     {
-        return $this->render('depot/show_retrait.html.twig', compact('retraits'));
+        return $this->render('retrait/show.html.twig', compact('retraits'));
     }
 }

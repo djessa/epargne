@@ -1,27 +1,26 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 	<div class="container-fluid">
-		<a class="navbar-brand text-primary" href="/">
-			<span class="fas fa-cube"></span>
-			Epargne</a>
+		<a id="nav-brand" class="navbar-brand text-primary" href="{{ path('home') }}">
+			<span class="fas fa-cube" id="icone-nav" ></span>
+			Digital-Epargne-Service</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto mb-2 mb-md-0">
-				<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="{{ path("person_register") }}" >
-						<span class="bi bi-person-circle"></span>
-						Ajouter une  personne</a>
+				<li class="dropdown nav-item">
+					<a href="#" class="nav-link dropdown-toggle {%if person_nav is defined %} active {%endif%}" data-toggle="dropdown"><span style="text-shadow:5px 3px 5px black;{%if person_nav is defined %}color:chartreuse;{%endif%}" class="fas fa-user"></span> Personnes</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item"  href="{{ path("person") }}">Voir la liste</a>
+						<a class="dropdown-item"  href="{{ path("person_register") }}">Ajouter</a>
+					</div>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="{{ path("admin_rate") }}" >
-						<span class="fas fa-percent"></span>
-						Consulter un  taux</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="{{ path("admin_rate_new") }}" >
-						<span class="fas fa-percent"></span>
-						Ajouter un  taux</a>
+				<li class="dropdown nav-item">
+					<a href="#" class="nav-link dropdown-toggle {%if rates_nav is defined %} active {%endif%}" data-toggle="dropdown"><span style="text-shadow:5px 3px 5px black;{%if rates_nav is defined %}color:chartreuse;{%endif %}" class="fas fa-percent"></span> Taux</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item"  href="{{ path("rates") }}">Consulter</a>
+						<a class="dropdown-item"  href="{{ path("rates_new") }}">Ajouter</a>
+					</div>
 				</li>
 			</ul>
 			<form class="d-flex" action="{{ path('person')}}">
@@ -30,7 +29,7 @@
 					<span class="fas fa-search"></span>
 				</button>
 			</form>
-			<a class="nav-link btn btn-outline-danger ml-1" aria-current="page" href="{{ path("person_register") }}">
+			<a class="nav-link btn btn-outline-danger ml-1" aria-current="page" href="{{ path("users_logout") }}">
 				<span class="fas fa-power-off"></span>
 			</a>
 		</div>

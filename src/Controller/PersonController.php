@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Corporations;
 use App\Entity\Persons;
-use App\Form\CorporationsType;
 use App\Form\PersonsType;
-use App\Repository\CorporationsRepository;
 use App\Repository\PersonsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,8 +15,8 @@ use Symfony\Component\Validator\Constraints\Length;
 class PersonController extends AbstractController
 {
     /**
-     * @Route ("/", name="person")
-     * C'est la route  pour la gestion des personnes
+     * @Route ("/person", name="person")
+     *
      */
     public function  index(PersonsRepository $personRepository)
     {
@@ -36,7 +33,7 @@ class PersonController extends AbstractController
                 $persons = $personRepository->findBy(['identity' => $q]);
             }
         }
-        return $this->render('person/index.html.twig', compact('persons'));
+        return $this->render('person/index.html.twig', ['persons'=>$persons, 'person_nav'=>true]);
     }
     /**
      * @Route("/person/register", name="person_register")
@@ -52,45 +49,15 @@ class PersonController extends AbstractController
             return $this->redirectToRoute('person');
         }
         return $this->render('person/register.html.twig', [
-            'form' => $person_form->createView()
+            'form' => $person_form->createView(),
+            'person_nav'=>true
         ]);
     }
     /**
-     * @Route("/{id}/corporation", name="person_corporation")
-     */
-    public  function  corporation(Persons $persons, CorporationsRepository $corporationsRepository): Response
-    {
-        $corporations = $corporationsRepository->findBy(['person' => $persons], ['id' => 'desc']);
-        $empty = false;
-        if (empty($corporations)) {
-            $empty = true;
-        }
-        return $this->render('person/corporations.html.twig', ['persons' => $persons, 'corporations' => $corporations, 'empty' => $empty]);
-    }
-    /**
-     * @Route("/{id}/corporation/register", name="person_corporation_register")
-     */
-    public  function  corporation_register(Persons $persons, Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $corporation = new Corporations();
-        $form = $this->createForm(CorporationsType::class, $corporation);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $corporation->setPerson($persons);
-            $entityManager->persist($corporation);
-            $entityManager->flush();
-            return $this->redirectToRoute('person_corporation', ['id' => $persons->getId(), 'id_morale' => $corporation->getId()]);
-        }
-        return $this->render('person/corporation_register.html.twig', [
-            'form' => $form->createView(),
-            'persons' => $persons
-        ]);
-    }
-    /**
-     * @Route("/{id}/person/show", name="show")
+     * @Route("/{id}/person/show", name="person_show")
      */
     public function show(Persons $persons)
     {
-        return $this->render('person/show.html.twig', compact('persons'));
+        return $this->render('person/show.html.twig', ['persons'=>$persons, 'person_nav'=>true]);
     }
 }

@@ -1,9 +1,53 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}
-	<link rel="stylesheet" href="/css/show.css">
-{% endblock %}
+
 {% block body %}
-	<div class="m-2">
+<div class="container-fluid">
+	<div id="info-person">
+		<div class="row row ml-2">
+		<div class="col-lg-4 col-sm-4 label">
+			<ul><hr>
+				<li>Nom et prénom</li>
+				<li>Nationalité</li>
+				<li>Numéro d'identité</li>
+				<li>Adresse</li>
+				<li>Telephone</li>
+				<li>Adresse email</li>
+				<li>CIN recto</li>
+				<li>CIN verso</li>
+				<li>Certificat de résidence</li><hr>
+			</ul>
+		</div>
+		<div class="col-lg-1 col-sm-1 symbole">
+			<ul><hr>
+				<li>:</li>
+				<li>:</li>
+				<li>:</li>
+				<li>:</li>
+				<li>:</li>
+				<li>:</li>
+				<li>:</li>
+				<li>:</li>
+				<li>:</li><hr>
+			</ul>
+		</div>
+		<div class="col-lg-7 col-sm-7 value">
+			<ul><hr>
+				<li>{{ persons.name }}</li>
+				<li>{{ persons.nationality }}</li>
+				<li>{{ persons.identity }}</li>
+				<li>{{ persons.address }}</li>
+				<li>{{ persons.tel }}</li>
+				<li>{{ persons.email }}</li>
+				<li><a href="/images/cin_recto/{{ persons.cinRecto}}">Cliquez pour voir</a></li>
+				<li><a href="/images/cin_verso/{{ persons.cinVerso}}">Cliquez pour voir</a></li>
+				<li><a href="/images/certificat/{{ persons.certificat}}">Cliquez pour voir</a></li><hr>			
+			</ul>
+		</div>
+		</div>
+	</div>
+	<a href="{{path('person') }}" class="btn btn-info mt-2" style="margin-left:15%;">Retour</a>
+</div>
+	<!--div class="m-2">
 		<div class="row text-center m-2">
 			<div class="col-lg-4 col-md-4">
 				<div class="form-group">
@@ -47,5 +91,5 @@
 			</div>
 
 		</div>
-	</div>
+	</div-->
 {% endblock %}

@@ -7,7 +7,7 @@
 			{{form_widget(form) }}
 			<div class="form-group m-2">
 				<button type="submit" class="btn btn-primary">Enregistrer</button>
-				<a href="{{ path('person_corporation', {'id':persons.id}) }}" class="btn btn-secondary">Retour</a>
+				<a href="{{ path('corporation', {'id':persons.id}) }}" class="btn btn-secondary">Retour</a>
 			</div>
 		{{ form_end(form) }}
 </div>{% endblock %}

@@ -4,20 +4,18 @@
 		<meta charset="UTF-8">
 		<title>
 			{% block title %}
-				Bienvenue sur e-digital !
+				Digital-Epargne-Service
 			{% endblock %}
 		</title>
-		<link rel="stylesheet" href="/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/font-awesome/css/all.css">
-		<link rel="stylesheet" href="/bootstrap-icons/font/bootstrap-icons.css">
-		<link rel="stylesheet" href="/css/style.css"> {% block stylesheets %}{% endblock %}
+		{{ encore_entry_link_tags('app') }}
+		{% block stylesheets %}{% endblock %}
 		</head>
 		<body>
 			{% include 'nav.html.twig' %}
 			<main>
 				{% block body %}{% endblock %}
 			</main>
-			<script src="/js/bootstrap.bundle.min.js"></script>
+			{{ encore_entry_script_tags('app') }}
 			{% block javascripts %}{% endblock %}
 		</body>
 	</html>

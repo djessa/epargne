@@ -5,8 +5,8 @@
 		{% if empty is defined %}
 			<p class="text-center">Aucune personne dans la base de données</p>
 		{% else %}
-			<table class="table table-primary text-center">
-				<thead>
+			<table class="table table-hover text-center">
+				<thead class="text-white">
 					<tr>
 						<th>Personne</th><th>Association(s)</th><th>Dépot(s)</th>
 					</tr>
@@ -15,10 +15,10 @@
 					{% for person in persons %}
 						<tr>
 							<td>
-								<a class="btn btn-primary" href="{{ path("show", {'id':person.id}) }}">N°CIN: {{ person.identity }}</a>
+								<a class="c-cin-btn" href="{{ path("person_show", {'id':person.id}) }}">N°CIN: {{ person.identity }}</a>
 							</td>
 							<td>
-								<a class="btn btn-warning mr-2" href="{{ path("person_corporation", {'id':person.id}) }}"><span class="fas fa-street-view"></span> Voir la liste</a>
+								<a class="btn btn-warning mr-2" href="{{ path("corporation", {'id':person.id}) }}"><span class="fas fa-street-view"></span> Voir la liste</a>
 							</td>
 							<td>
 								<a class="btn btn-success mr-2" href="{{ path("depot", {'id':person.id, 'id_morale':0}) }}"><span class="fas fa-edit"></span> Voir la liste</a>

@@ -1,9 +1,19 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+home:
+    path: /
+    controller: App\Controller\HomeController::index
+entry:
+    path: /entry
+    controller: App\Controller\HomeController::entry
 users_login:
     path: /login
     controller: App\Controller\UsersController::login
+users_logout:
+    path: /logout
+    controller: App\Controller\UsersController::logout
 rates_new:
     path: /rates/new
     controller: App\Controller\RatesController::new
+
