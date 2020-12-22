@@ -3,7 +3,7 @@
 	Inscription
 {% endblock %}
 {% block stylesheets %}
-	<link rel="stylesheet" href="/css/register.css">
+	{{ encore_entry_link_tags('person')}}
 {% endblock %}
 {% block body %}
 	{{ form_start(form) }}
@@ -48,4 +48,7 @@
 		</div>
 	</div>
 	{{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('person')}}
 {% endblock %}

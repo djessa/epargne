@@ -1,12 +1,13 @@
 body {
-    margin: 0px;
+    margin: 0;
+    padding: 0;
     font-family: "Droid Sans Mono";
     font-size: medium;
     background-color: darkslategrey;
     color: black;
     min-height: 75rem;
     padding-top: 4.5rem;
-    
+    box-sizing: border-box;
 }
 #icone-nav {
     color:red;
@@ -18,39 +19,8 @@ body {
     box-shadow: 5px 0px 5px black;
     padding: 5px;
 }
-
 @media (min-width: 768px) {
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
     }
 }
-form[name="persons"]{
-    width: 90%;
-    height: auto;
-    margin: auto;
-    padding: 12px;
-    border-radius:5px;
-}
-
-form[name="corporations"]{
-    margin: auto;
-    padding: 12px;
-    border-radius:5px;
-}
-form[name="persons"] input {
-    outline:none;
-    box-sizing: border-box;
-    font-weight: bold;
-    padding: 10px 6px;
-    background:transparent;
-}
-#message_person_register {
-    width: 90%;
-    margin: auto;
-}
-#new_depot form {
-    margin-top: 20px;
-    border-radius: 5px;
-    padding: 9px;
-}
-

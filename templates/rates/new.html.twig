@@ -3,7 +3,9 @@
 {% block title %}
     Création de nouveau taux
 {% endblock %}
-
+{% block stylesheets %}
+    {{ encore_entry_link_tags('rate')}}
+{% endblock %}
 {% block body %}
     {{ form_start(form) }}
     <div class="container">
@@ -41,4 +43,7 @@
         </div>
     </div>
     {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('rate')}}
 {% endblock %}

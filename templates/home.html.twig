@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <title> Digital-Epargne-Service </title>
       {{ encore_entry_link_tags('app') }}
+      {% block stylesheets %}{{ encore_entry_link_tags('home') }}{% endblock %}
 	</head>
 	<body class="c-home-body">
     <nav class="navbar  navbar-dark fixed-top bg-dark">
@@ -15,5 +16,6 @@
         </div>
     </nav>
 	  {{ encore_entry_script_tags('app') }}
+      {% block javascripts %}{{ encore_entry_script_tags('home') }}{% endblock %}
 	</body>
 </html>

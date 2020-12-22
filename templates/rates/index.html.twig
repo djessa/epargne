@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} Consultation des taux {% endblock %}
-
+{% block stylesheets %}
+	{{ encore_entry_link_tags('rate')}}
+{% endblock %}
 {% block body %}
 <!--content-->
-<div class="container row">
+<div class="row m-2">
 <!--part1-->
 <div class="col">
 	<div class="card">
@@ -125,4 +127,7 @@
 <!--end part2-->
 </div>
 <!--end content-->
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('rate')}}
 {% endblock %}
