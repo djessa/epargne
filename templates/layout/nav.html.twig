@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+	<div class="container-fluid">
+		<a id="nav-brand" class="navbar-brand text-info" href="{{ path('home') }}"><i class="fa fa-bank"></i> Digital-Epargne-Service</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto mb-2 mb-md-0">
+				<li class="nav-item m-2">
+					<a  href="{{ path('person') }}" class="nav-link btn btn-outline-info text-white">Service</a>
+				</li>
+				<li class="nav-item m-2">
+					<a  href="#" class="nav-link btn btn-outline-info text-white">Historique</a>
+				</li>
+
+			</ul>
+			<ul class="navbar-nav mr-2 mb-2 mb-md-0">
+				<li class="nav-item m-2">
+					<a  href="{{ path('security_logout') }}" class="nav-link btn btn-outline-danger text-white">Sortir</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>

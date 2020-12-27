@@ -1,18 +1,36 @@
-.c-cin-btn {
-    text-decoration: none;
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
+#header-person {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    padding: 5px;
+    margin-bottom: 10px;
 }
-.c-cin-btn:hover {
-    text-decoration: none;
-    color: tomato;
-    text-shadow: 10px 10px 10px black;
+#q {
+    position:relative;
+    top:2px;
+    color:black;
+    padding:4px;
+    border-color:rgba(0,0,255,0.6);
 }
-#entete-table-person {
-    background: red;
+table tbody tr  td a:hover {
+    text-decoration: none;
+}
+#corporation a {
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+#header-corporation  {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 5px;
+}
+#btn-registration {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: 25%;
 }

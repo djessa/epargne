@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	Inscription
-{% endblock %}
-{% block stylesheets %}
-	{{ encore_entry_link_tags('person')}}
-{% endblock %}
+
+{% block title %} Inscription {% endblock %}
+
+{% block stylesheets %} {{ encore_entry_link_tags('person')}} {% endblock %}
+
 {% block body %}
 	{{ form_start(form) }}
 	<div class="row">
@@ -49,6 +48,5 @@
 	</div>
 	{{ form_end(form) }}
 {% endblock %}
-{% block javascripts %}
-	{{ encore_entry_script_tags('person')}}
-{% endblock %}
+
+{% block javascripts %} {{ encore_entry_script_tags('person')}} {% endblock %}

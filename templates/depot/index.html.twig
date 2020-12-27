@@ -1,27 +1,20 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
 	<div class="container">
-		<a href="{{ path('depot_new', {'id':proprietaire.id, 'id_morale':proprietaire.corporation}) }}" class="mb-2 btn btn-success float-right">Ajouter un nouveau contrat</a>
+		<a href="{{ path('depot_new', {'id':proprietaire.id, 'id_morale':proprietaire.corporation}) }}" class="mb-2 btn-sm btn-success float-right">Ajouter un nouveau contrat</a>
 		<p class="text-center"></p>
 		<strong>Au nom de  :</strong>
 		{{ proprietaire.name }}
 	</p>
-	{% if empty is defined %}
+	{% if depots is empty %}
 		<p class="text-center text-info m-5">
-			Aucune dépot effectuée</p>
+			Aucune dépot effectuée
+		</p>
 	{% else %}
-		<table class="table table-hover text-center">
+		<table class="table table-bordered  text-center">
 			<thead class="text-primary">
-				<tr>
-					<th>Début</th>
-					<th>Fin</th>
-					<th>Somme</th>
-					<th>Pièce</th>
-					<th>Délai</th>
-					<th>Taux</th>
-					<th>Capitaux</th>
-					<th></th>
-				</tr>
+				<tr><th>Début</th><th>Fin</th><th>Somme</th><th>Pièce d'obtention</th><th>Délai</th><th>Taux</th><th>Capitaux</th><th></th></tr>
 			</thead>
 			<tbody class="text-info">
 				{% for depot in depots %}
@@ -51,5 +44,5 @@
 			</tbody>
 		</table>
 	{% endif %}
-	<a href="{{ path('person') }}" class="btn-sm btn-primary">Retour au menu</a>
+	<a href="{% if proprietaire.corporation == 0 %} {{ path('person') }} {% else %} {{ path('corporation', {'id':proprietaire.id}) }} {% endif %}" class="btn-sm btn-primary">Retour</a>
 </div>{% endblock %}

@@ -19,12 +19,11 @@ class CorporationController extends AbstractController
      */
     public  function  index(Persons $persons, CorporationsRepository $corporationsRepository): Response
     {
-        $corporations = $corporationsRepository->findBy(['person' => $persons], ['id' => 'desc']);
-        $empty = false;
-        if (empty($corporations)) {
-            $empty = true;
-        }
-        return $this->render('corporation/index.html.twig', ['persons' => $persons, 'corporations' => $corporations, 'empty' => $empty]);
+        return $this->render('corporation/index.html.twig', [
+            'persons' => $persons, 
+            'person_nav' =>true, 
+            'corporations' => $corporationsRepository->findBy(['person' => $persons], ['id' => 'desc'])
+        ]);
     }
     /**
      * @Route("/{id}/corporation/register", name="corporation_register")

@@ -1,37 +1,31 @@
 {% extends 'base.html.twig' %}
+
+{% block stylesheets %} {{ encore_entry_link_tags('person') }}{% endblock %}
+
 {% block body %}
-	<div class="container">
-		<a href="{{ path('corporation_register', {'id':persons.id}) }}" class="mb-2 btn btn-warning float-right">Ajouter un personne  morale</a>
-		<p> <strong>Personne :</strong> {{ persons.name }} </p>
-		<p> <strong>N°CIN :</strong> {{ persons.identity }} </p>
-	{% if empty == true %}
+	<div class="container" id="corporation">
+		<div id="header-corporation">
+			<p> <strong>Personne responsable:</strong> {{ persons.name }} </p>
+			<p> <strong>N°CIN :</strong> {{ persons.identity }} </p>
+			<a href="{{ path('corporation_register', {'id':persons.id}) }}" class="btn-sm btn-warning">Nouveau personne  morale</a>
+		</div>
+	{% if corporations is empty %}
 		<p class="text-center text-info"> Aucune personne morale associé </p>
 	{% else %}
-		<table class="table table-striped text-center">
-			<thead class="text-white">
-				<tr>
-					<th>Raison sociale</th>
-					<th>Adresse</th>
-					<th>Pièce d'autorisation</th>
-					<th>Dépot(s)</th>
-				</tr>
+		<table class="table table-bordered text-center">
+			<thead>
+				<tr> <th>Raison sociale</th><th>Adresse</th><th>Pièce d'autorisation</th><th>Dépot(s)</th></tr>
 			</thead>
 			<tbody class="text-primary">
 				{% for corporation in corporations %}
 					<tr>
-						<td>{{ corporation.socialReason }}</td>
-						<td>{{ corporation.address }}</td>
-						<td>
-							<a href="/images/piece_person/{{ corporation.piecePerson }}" class="btn-sm btn-primary">Aperçu</a>
-						</td>
-						<td>
-							<a href="{{ path('depot', {'id':persons.id, 'id_morale':corporation.id})}}" class="btn-sm btn-success mr-2" href="">Voir la liste</a>
-						</td>
+						<td>{{ corporation.socialReason }}</td><td>{{ corporation.address }}</td><td><a href="/images/piece_person/{{ corporation.piecePerson }}" class="btn-sm btn-primary">Aperçu</a></td><td><a href="{{ path('depot', {'id':persons.id, 'id_morale':corporation.id})}}" class="btn-sm btn-success mr-2" href="">Voir la liste</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 	{% endif %}
-				<a href="{{ path('person')}}" class="btn-sm btn-primary">Retour au menu</a>
-
+	<a href="{{ path('person')}}" class="btn-sm btn-primary">Retour au menu</a>
 </div>{% endblock %}
+
+{% block javascripts %} {{ encore_entry_script_tags('person') }}{% endblock %}

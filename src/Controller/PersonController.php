@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Persons;
 use App\Form\PersonsType;
-use App\Repository\PersonsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,19 +17,18 @@ class PersonController extends AbstractController
      * @Route ("/person", name="person")
      *
      */
-    public function  index(PersonsRepository $personRepository)
+    public function  index()
     {
-        //Recupération de liste des personnes et on passe à la vue avec des opérations concérnés
-        $persons = $personRepository->findBy([], ['id' => 'desc']);
-        if (empty($persons)) {
-            $empty = true;
-            return $this->render('person/index.html.twig', compact('empty'));
+        if(!$this->getUser()) {
+            return $this->redirectToRoute('home');
         }
+        //Recupération de liste des personnes et on passe à la vue avec des opérations concérnés
+        $persons = $this->getDoctrine()->getRepository(Persons::class)->findBy([], ['id' => 'desc']);
         //S'il y a une recherche effectué sur la page 
         if (!empty($_GET['q'])) {
             $q = htmlentities($_GET['q']);
             if (is_numeric($q) && strlen($_GET['q']) == 12) {
-                $persons = $personRepository->findBy(['identity' => $q]);
+                $persons = $this->getDoctrine()->getRepository(Persons::class)->findBy(['identity' => $q]);
             }
         }
         return $this->render('person/index.html.twig', ['persons'=>$persons, 'person_nav'=>true]);

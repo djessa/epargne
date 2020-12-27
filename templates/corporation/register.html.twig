@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
+
+{% block stylesheets %} {{ encore_entry_link_tags('person') }}{% endblock %}
+
 {% block body %}
-	<div class="container">
-		<p> <strong>Personne :</strong> {{ persons.name }} </p>
-		<p> <strong>N°CIN :</strong> {{ persons.identity }} </p>
+	<div class="container" id="corporation">
+		<div id="header-corporation">
+			<p> <strong>Personne responsable:</strong> {{ persons.name }} </p>
+			<p> <strong>N°CIN :</strong> {{ persons.identity }} </p>
+			<a href="{{ path('corporation_register', {'id':persons.id}) }}" class="btn-sm btn-warning">Nouveau personne  morale</a>
+		</div>
 		{{ form_start(form) }}
 			{{form_widget(form) }}
-			<div class="form-group m-2">
-				<button type="submit" class="btn btn-primary">Enregistrer</button>
+			<div id="btn-registration">
+				<button type="submit" class="btn btn-success">Enregistrer</button>
 				<a href="{{ path('corporation', {'id':persons.id}) }}" class="btn btn-secondary">Retour</a>
 			</div>
 		{{ form_end(form) }}
-</div>{% endblock %}
+	</div>
+{% endblock %}
+
+{% block javascripts %} {{ encore_entry_script_tags('person') }}{% endblock %}
+
