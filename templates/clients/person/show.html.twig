@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+	<div class="container p-2" id="show">
+		<table class="table table-bordered text-center">
+			<tr>
+				<th>Nom et prénom</th>
+				<td colspan="2">{{ persons.name }}</td>
+			</tr>
+			<tr>
+				<th>Nationalité</th>
+				<td colspan="2">{{ persons.nationality }}</td>
+			</tr>
+			<tr>
+				<th>Numéro d'identité</th>
+				<td colspan="2">{{ persons.identity }}</td>
+			</tr>
+			<tr>
+				<th>Adresse</th>
+				<td colspan="2">{{ persons.address }}</td>
+			</tr>
+			<tr>
+				<th>Telephone</th>
+				<td colspan="2">{{ persons.tel }}</td>
+			</tr>
+			<tr>
+				<th>Adresse email</th>
+				<td colspan="2">{{ persons.email }}</td>
+			</tr>
+			<tr>
+				<th>CIN recto</th>
+				<td colspan="2">
+					<a href="{{ asset('/images/cin_recto/'{{ persons.cinRecto}}) }}">Cliquez pour voir</a>
+				</td>
+			</tr>
+			<tr>
+				<th>CIN verso</th>
+				<td colspan="2">
+					<a href="{{ asset('/images/cin_verso/'{{ persons.cinVerso}}) }}">Cliquez pour voir</a>
+				</td>
+			</tr>
+			<tr>
+				<th>Certificat de résidence</th>
+				<td colspan="2">
+					<a href="{{ asset('/images/certificat/'{{ persons.certificat }}) }}">Cliquez pour voir</a>
+				</td>
+			</tr>
+		</table>
+		<a href="{{path('person') }}" class="btn-sm btn-info mt-2">Retour</a>
+	{% endblock %}
+
+	{% block javascirpt %}{% endblock %}

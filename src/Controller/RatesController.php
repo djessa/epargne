@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Rates;
 use App\Form\RatesType;
 use App\Repository\RatesRepository;
@@ -26,7 +27,7 @@ class RatesController extends AbstractController
                 $data['error'] = "Il n'y aucune taux pour cette periode";
             }
         }
-        return $this->render('rates/index.html.twig', ['data'=>$data, 'rates_nav'=>true]);
+        return $this->render('services/rates/index.html.twig', ['data' => $data, 'rates_nav' => true]);
     }
 
     public function new(EntityManagerInterface $entityManager, Request $request): Response
@@ -34,12 +35,11 @@ class RatesController extends AbstractController
         $rate = new Rates();
         $form = $this->createForm(RatesType::class, $rate);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($rate);
             $entityManager->flush();
             return $this->redirectToRoute('rates');
         }
-        return $this->render('rates/new.html.twig', ['form' => $form->createView(),'rates_nav' =>true]);
+        return $this->render('services/rates/new.html.twig', ['form' => $form->createView(), 'rates_nav' => true]);
     }
 }

@@ -24,7 +24,7 @@ class DepotController extends AbstractController
     public function index(Persons $persons, $id_morale): Response
     {
         return $this->render(
-            'depot/index.html.twig',
+            'services/depot/index.html.twig',
             [
                 'proprietaire' => $this->proprietaire($persons, $id_morale),
                 'depots' => $this->getDoctrine()->getRepository(Depots::class)->findBy(['persons' => $persons, 'corporations' => $this->proprietaire($persons, $id_morale)['corporations']], ['id' => 'desc'])
@@ -36,7 +36,7 @@ class DepotController extends AbstractController
      */
     public function new(Persons $persons, $id_morale, Request $request, EntityManagerInterface $entityManager): Response
     {
-       
+
         $fund = new Funds();
         $form = $this->createForm(FundsType::class, $fund);
         $form->handleRequest($request);
@@ -60,7 +60,7 @@ class DepotController extends AbstractController
             ]);
         }
         return $this->render(
-            'depot/new.html.twig',
+            'services/depot/new.html.twig',
             ['form' => $form->createView(), 'proprietaire' => $this->proprietaire($persons, $id_morale)]
         );
     }
@@ -69,18 +69,18 @@ class DepotController extends AbstractController
      */
     public function remove(Depots $depots, EntityManagerInterface $entityManagerInterface, Request $request)
     {
-        if (!empty($_POST['person_id'])) {  
+        if (!empty($_POST['person_id'])) {
             $time = mktime(null, null, null, (int) $depots->getEndDate()->format('m'), (int)$depots->getEndDate()->format('d'), (int)$depots->getEndDate()->format('Y'));
             if (time() < $time) {
                 $date = date('d/m/Y', $time);
-                return $this->render('depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat.', 'date' => $date]);
+                return $this->render('services/depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat.', 'date' => $date]);
             }
             $retrait = new Retraits();
             $retrait->setCreatedAt(new \DateTime());
             $retrait->setFund($depots->getFund());
             $persons = $this->getDoctrine()->getRepository(Persons::class)->findOneBy(['identity' => $_POST['person_id']]);
             if (!$persons) {
-                return $this->render('depot/error.html.twig', ['message' => 'Cette personne doit s\'inscrire parce qu\'il n\'est pas connu']);
+                return $this->render('services/depot/error.html.twig', ['message' => 'Cette personne doit s\'inscrire parce qu\'il n\'est pas connu']);
             }
             $retrait->setPerson($persons);
             $depots->setIsRetired(true);
@@ -90,18 +90,18 @@ class DepotController extends AbstractController
                 'depot',
                 [
                     'id' => $depots->getPersons()->getId(),
-                    'id_morale' => ($depots->getCorporations() != null) ? $depots->getCorporations()->getId() : 0 
+                    'id_morale' => ($depots->getCorporations() != null) ? $depots->getCorporations()->getId() : 0
                 ]
             );
         }
-        return $this->render('retrait/new.html.twig', compact('depots'));
+        return $this->render('services/retrait/new.html.twig', compact('depots'));
     }
     /**
      * @Route("/retrait/{fund}", name="show_retrait")
      */
     public function show_retrait(Retraits $retraits)
     {
-        return $this->render('retrait/show.html.twig', compact('retraits'));
+        return $this->render('services/retrait/show.html.twig', compact('retraits'));
     }
     public function proprietaire($persons, $id_morale)
     {

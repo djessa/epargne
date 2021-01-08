@@ -1,0 +1,36 @@
+#header-person {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+#q {
+    position:relative;
+    top:2px;
+    color:black;
+    padding:4px;
+    border-color:rgba(0,0,255,0.6);
+}
+table tbody tr  td a:hover {
+    text-decoration: none;
+}
+#corporation a {
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+#header-corporation  {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 5px;
+}
+#btn-registration {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: 25%;
+}

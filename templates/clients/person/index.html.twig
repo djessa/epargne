@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Gestion des personnes
+{% endblock %}
+
+
+{% block body %}
+	<div class="container p-2">
+		<div id="header-person">
+			<form class="recherche" action="{{ path('person')}}">
+				<input id="q" type="search" placeholder="Tapez le numéro de la CIN du personne" aria-label="Search" name="q">
+				<button class="btn btn-outline-success" type="submit">
+					<span class="fa fa-search"></span>
+				</button>
+			</form>
+			<a href="{{ path('person_register')}}" class="btn btn-outline-primary ml-2">Nouveau personne</a>
+		</div>
+		{% if persons is empty %}
+			<p class="text-center">Aucune personne dans la base de données</p>
+		{% else %}
+			<table class="table table-bordered text-center">
+				<thead>
+					<tr>
+						<th>Personne</th>
+						<th>Association(s)</th>
+						<th>Dépot(s)</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for person in persons %}
+						<tr>
+							<td>
+								<a class="c-cin-btn" href="{{ path("person_show", {'id':person.id}) }}">{{ person.identity }}</a>
+							</td>
+							<td>
+								<a class="btn-sm btn-warning mr-2" href="{{ path("corporation", {'id':person.id}) }}">
+									<i class="fa fa-paperclip"></i>
+									Voir la liste</a>
+							</td>
+							<td>
+								<a class="btn-sm btn-success mr-2" href="{{ path("depot", {'id':person.id, 'id_morale':0}) }}">
+									<i class="fa fa-paperclip"></i>
+									Voir la liste</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

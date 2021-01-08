@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block body %}
+	<div class="show_retrait text-center m-2 p-2">
+		<div class="form-control m-2">
+			<label for="date">Date de rétrait :
+			</label>
+			{{ retraits.createdAt | date('d/m/Y')}}
+		</div>
+		<div class="form-control">
+			<label for="person">Rétiré par :
+			</label>
+			<a href="{{ path('show', {'id':retraits.person.id}) }}">{{ retraits.person.name }}</a>
+		</div>
+	</div>
+{% endblock %}

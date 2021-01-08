@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\Persons;
@@ -19,9 +20,9 @@ class CorporationController extends AbstractController
      */
     public  function  index(Persons $persons, CorporationsRepository $corporationsRepository): Response
     {
-        return $this->render('corporation/index.html.twig', [
-            'persons' => $persons, 
-            'person_nav' =>true, 
+        return $this->render('client/corporation/index.html.twig', [
+            'persons' => $persons,
+            'person_nav' => true,
             'corporations' => $corporationsRepository->findBy(['person' => $persons], ['id' => 'desc'])
         ]);
     }
@@ -39,7 +40,7 @@ class CorporationController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('corporation', ['id' => $persons->getId(), 'id_morale' => $corporation->getId()]);
         }
-        return $this->render('corporation/register.html.twig', [
+        return $this->render('client/corporation/register.html.twig', [
             'form' => $form->createView(),
             'persons' => $persons
         ]);

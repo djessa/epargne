@@ -19,7 +19,7 @@ class PersonController extends AbstractController
      */
     public function  index()
     {
-        if(!$this->getUser()) {
+        if (!$this->getUser()) {
             return $this->redirectToRoute('home');
         }
         //Recupération de liste des personnes et on passe à la vue avec des opérations concérnés
@@ -31,7 +31,7 @@ class PersonController extends AbstractController
                 $persons = $this->getDoctrine()->getRepository(Persons::class)->findBy(['identity' => $q]);
             }
         }
-        return $this->render('person/index.html.twig', ['persons'=>$persons, 'person_nav'=>true]);
+        return $this->render('client/person/index.html.twig', ['persons' => $persons, 'person_nav' => true]);
     }
     /**
      * @Route("/person/register", name="person_register")
@@ -46,9 +46,9 @@ class PersonController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('person');
         }
-        return $this->render('person/register.html.twig', [
+        return $this->render('client/person/register.html.twig', [
             'form' => $person_form->createView(),
-            'person_nav'=>true
+            'person_nav' => true
         ]);
     }
     /**
@@ -56,6 +56,6 @@ class PersonController extends AbstractController
      */
     public function show(Persons $persons)
     {
-        return $this->render('person/show.html.twig', ['persons'=>$persons, 'person_nav'=>true]);
+        return $this->render('client/person/show.html.twig', ['persons' => $persons, 'person_nav' => true]);
     }
 }
