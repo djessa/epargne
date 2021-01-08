@@ -40,7 +40,7 @@ header h1 {
     flex-direction: row;
     justify-content:space-between;
     align-items: center;
-    background-image: url(../../img/bg.jpg);
+    background-image: url(../img/bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 10px;

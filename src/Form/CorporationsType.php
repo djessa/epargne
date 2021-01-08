@@ -13,8 +13,8 @@ class CorporationsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('social_reason', null, ['label' => 'Raison sociale'])
-            ->add('address', null, ['label' => 'Adresse exacte'])
+            ->add('social_reason', null, ['label' => 'Raison sociale', 'attr' => ['placeholder' => 'Entrer le raison sociale ']])
+            ->add('address', null, ['label' => 'Adresse exacte', 'attr' => ['placeholder' => 'Entrer l\'adresse exacte']])
             ->add('piece_person_file', FileType::class, ['label' => 'Pièce du personne responsable']);
     }
 

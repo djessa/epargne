@@ -12,8 +12,14 @@
 		{% block stylesheets %}{% endblock %}
 	</head>
 	<body>
-		{% include 'layout/nav.html.twig' %}
-		{% block body %}{% endblock %}
+		{% if app.user %}
+			{% include 'layout/nav.html.twig' %}
+			{% block body %}{% endblock %}
+		{% else %}
+			<div class="alert alert-danger text-center">
+				Vous n'êtes pas connectés
+			</div>
+		{% endif %}
 		{{ encore_entry_script_tags('admin') }}
 	</body>
-</html>
+</html></body></html>

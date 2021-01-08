@@ -113,36 +113,13 @@ a {
     width: 50%;
     margin-left: 25%;
 }
-main {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-}
-form[name="persons"]{
-   width: 90%;
-   height: auto;
-   margin: auto;
-   padding: 12px;
-   border-radius:5px;
-}
 
 form[name="corporations"]{
    margin: auto;
    padding: 12px;
    border-radius:5px;
 }
-form[name="persons"] input {
-   outline:none;
-   box-sizing: border-box;
-   font-weight: bold;
-   padding: 10px 6px;
-   background:transparent;
-}
-#new_depot form {
-   margin-top: 20px;
-   border-radius: 5px;
-   padding: 9px;
-}
+
 
 #info-person   li {
     list-style: none;
@@ -183,6 +160,27 @@ form[name="persons"] input {
 
 }
 
+#q_taux {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#q_taux * {
+    margin:0px 10px;
+}
+#card_taux {
+    height: 40vh;
+}
+#card_taux {
+    background: transparent;
+}
+#admin_page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 
 
 

@@ -1,2 +1,2 @@
 //Styles
-import './css/front/home.css';
+import './css/home.css';

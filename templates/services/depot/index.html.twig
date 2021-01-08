@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}
+	{{ proprietaire.name }}
+{% endblock %}
 {% block body %}
 	<div class="container">
 		<a href="{{ path('depot_new', {'id':proprietaire.id, 'id_morale':proprietaire.corporation}) }}" class="mb-2 btn-sm btn-success float-right">Ajouter un nouveau contrat</a>
@@ -12,7 +14,7 @@
 			Aucune dépot effectuée
 		</p>
 	{% else %}
-		<table class="table table-bordered  text-center">
+		<table class="table bg-white table-bordered  text-center">
 			<thead class="text-primary">
 				<tr>
 					<th>Début</th>
@@ -33,7 +35,7 @@
 						<td>{{ depot.fund.value }}
 							MGA</td>
 						<td>
-							<a class="btn-sm btn-primary" href="{{ asset('/images/piece_obtaining/'{{ depot.fund.pieceObtaining }}) }}">Afficher</a>
+							<a class="btn-sm btn-primary" href="/images/piece_obtaining/{{ depot.fund.pieceObtaining }}">Afficher</a>
 						</td>
 						<td>{{ depot.fund.duration }}
 							ans</td>

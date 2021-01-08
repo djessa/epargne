@@ -32,6 +32,9 @@ class RatesController extends AbstractController
 
     public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
+        if (!($this->getUser() && $this->getUser()->getIsAdmin())) {
+            return new Response("C'est une page d'administration, Vous n'avez pas le droit d'accès");
+        }
         $rate = new Rates();
         $form = $this->createForm(RatesType::class, $rate);
         $form->handleRequest($request);

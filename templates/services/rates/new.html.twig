@@ -3,43 +3,15 @@
 {% block title %}
 	Création de nouveau taux
 {% endblock %}
-{% block stylesheets %}{% endblock %}
 {% block body %}
-	{{ form_start(form) }}
 	<div class="container">
-		<div class="row">
-			<div class="col">
-				<div class="form-group">
-					{{ form_row(form.year) }}
-				</div>
-			</div>
-			<div class="col">
-				<div class="form-group">
-					{{ form_row(form.month) }}
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<div class="form-group">
-					{{ form_row(form.value_of_one) }}
-				</div>
-			</div>
-			<div class="col">
-				<div class="form-group">
-					{{ form_row(form.value_of_two) }}
-				</div>
-			</div>
-			<div class="col">
-				<div class="form-group">
-					{{ form_row(form.value_of_three) }}
-				</div>
-			</div>
-		</div>
+		<h1>Ajout d'un nouveau taux de service</h1>
+		{{ form_start(form) }}
+		{{form_widget(form)}}
 		<div class="form-group">
 			<input type="submit" value="Ajouter" class="btn btn-primary">
 		</div>
+		{{ form_end(form) }}
+
 	</div>
-	{{ form_end(form) }}
 {% endblock %}
-{% block javascripts %}{% endblock %}

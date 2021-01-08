@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Gestion des personnes
+	Epargne
 {% endblock %}
 
 
@@ -18,12 +18,12 @@
 		{% if persons is empty %}
 			<p class="text-center person_empty">Aucune personne dans la base de données</p>
 		{% else %}
-			<table class="table table-bordered text-center">
+			<table class="table bg-white table-bordered text-center">
 				<thead>
 					<tr>
-						<th>Personne</th>
-						<th>Association(s)</th>
+						<th>N°CIN</th>
 						<th>Dépot(s)</th>
+						<th>Personne morale associé(s)</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,12 +33,13 @@
 								<a class="c-cin-btn" href="{{ path("person_show", {'id':person.id}) }}">{{ person.identity }}</a>
 							</td>
 							<td>
-								<a class="btn-sm btn-warning mr-2" href="{{ path("corporation", {'id':person.id}) }}">
+								<a class="btn-sm btn-success mr-2" href="{{ path("depot", {'id':person.id, 'id_morale':0}) }}">
 									<i class="fa fa-paperclip"></i>
 									Voir la liste</a>
 							</td>
+
 							<td>
-								<a class="btn-sm btn-success mr-2" href="{{ path("depot", {'id':person.id, 'id_morale':0}) }}">
+								<a class="btn-sm btn-warning mr-2" href="{{ path("corporation", {'id':person.id}) }}">
 									<i class="fa fa-paperclip"></i>
 									Voir la liste</a>
 							</td>

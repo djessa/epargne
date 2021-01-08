@@ -1,18 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	<div class="container">
-		<p class="text-center"></p>
-		<strong>Au nom de  :</strong>
-		{{ proprietaire.name }}
-	</p>
-
-	<div id="new_depot">
+	<div class="container mt-5">
 		{{ form_start(form) }}
-			{{form_widget(form) }}
-			<div class="form-group m-2 text-center">
-				<button type="submit" class="btn btn-primary">Enregistrer</button>
-				<a href="./" class="btn btn-secondary">Retour</a>
-			</div>
+		{{form_widget(form) }}
+		<div id="btn-registration">
+			<button type="submit" class="btn btn-success mb-2">Enregistrer</button>
+			<a href="./" class="btn btn-secondary">Retour</a>
+		</div>
 		{{ form_end(form) }}
 	</div>
-</div>{% endblock %}
+{% endblock %}

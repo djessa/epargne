@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}
+	Administration
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5" id="admin_page">
+		<div class="taux m-2">
+			<a href="{{ path('rates_new' )}}" class="btn btn-primary">Ajouter un nouveau taux</a>
+		</div>
+		<div class="user m-2">
+			<a href="{{ path('security_registration' )}}" class="btn btn-primary">Ajouter un utilisateur</a>
+		</div>
+	</div>
+{% endblock %}

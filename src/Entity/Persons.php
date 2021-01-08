@@ -10,9 +10,12 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass=PersonsRepository::class)
  * @Vich\Uploadable
+ * @UniqueEntity(fields={"identity"}, message="Cette numéro d'identité est déjà utilisé dans la base de données" )
  */
 class Persons
 {
@@ -66,7 +69,7 @@ class Persons
     public function setCinRectoFile(File $cin_recto_file): void
     {
         $this->cin_recto_file = $cin_recto_file;
-        if ($this->cin_recto_file instanceof  UploadedFile){
+        if ($this->cin_recto_file instanceof  UploadedFile) {
             $this->setUpdatedAt(new  \DateTime());
         }
     }
@@ -95,7 +98,7 @@ class Persons
     public function setCinVersoFile(File $cin_verso_file): void
     {
         $this->cin_verso_file = $cin_verso_file;
-        if ($this->cin_verso_file instanceof UploadedFile){
+        if ($this->cin_verso_file instanceof UploadedFile) {
             $this->setUpdatedAt(new  \DateTime());
         }
     }
@@ -129,13 +132,13 @@ class Persons
     public function setCertificatFile(File $certificat_file): void
     {
         $this->certificat_file = $certificat_file;
-        if ($this->certificat_file instanceof UploadedFile){
+        if ($this->certificat_file instanceof UploadedFile) {
             $this->setUpdatedAt(new \DateTime());
         }
     }
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Regex ("/^[0-9]{10}$/")
+     * @Assert\Regex ("/^[0-9]{10}$/", message="Cette numéro n'est pas valide")
      */
     private $tel;
 
@@ -391,6 +394,4 @@ class Persons
 
         return $this;
     }
-
-
 }

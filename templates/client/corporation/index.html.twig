@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}
+	{{ persons.name }}
+{% endblock %}
 {% block body %}
 	<div class="container" id="corporation">
 		<div id="header-corporation">
@@ -14,11 +16,11 @@
 			<a href="{{ path('corporation_register', {'id':persons.id}) }}" class="btn-sm btn-warning">Nouveau personne  morale</a>
 		</div>
 		{% if corporations is empty %}
-			<p class="text-center text-info">
+			<p class="text-center text-info person_empty">
 				Aucune personne morale associé
 			</p>
 		{% else %}
-			<table class="table table-bordered text-center">
+			<table class="table bg-white table-bordered text-center">
 				<thead>
 					<tr>
 						<th>Raison sociale</th>
@@ -33,7 +35,7 @@
 							<td>{{ corporation.socialReason }}</td>
 							<td>{{ corporation.address }}</td>
 							<td>
-								<a href="{{ asset('/images/piece_person/'{{ corporation.piecePerson }}) }}" class="btn-sm btn-primary">Aperçu</a>
+								<a href="/images/piece_person/{{corporation.piecePerson}}" class="btn-sm btn-primary">Aperçu</a>
 							</td>
 							<td>
 								<a href="{{ path('depot', {'id':persons.id, 'id_morale':corporation.id})}}" class="btn-sm btn-success mr-2" href="">Voir la liste</a>

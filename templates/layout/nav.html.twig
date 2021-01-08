@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-xl navbar-dark fixed-top">
+<nav class="navbar navbar-expand-xl navbar-dark fixed-top mb-2">
 	<div class="container-fluid">
 		<a id="nav-brand" class="navbar-brand text-info" href="{{ path('home') }}">
 			<i class="fa fa-bank"></i>
@@ -15,12 +15,13 @@
 					<a href="{{ path('person_register')}}" class="nav-link btn btn-outline-primary text-white">Nouveau personne</a>
 				</li>
 				<li class="nav-item m-2">
-					<a href="#" class="nav-link btn btn-outline-primary text-white">Taux</a>
+					<a href="{{ path('rates') }}" class="nav-link btn btn-outline-primary text-white">Taux</a>
 				</li>
-				<li class="nav-item m-2">
-					<a href="#" class="nav-link btn btn-outline-primary text-white">Administration</a>
-				</li>
-
+				{% if app.user.isAdmin %}
+					<li class="nav-item m-2">
+						<a href="{{ path('admin') }}" class="nav-link btn btn-outline-primary text-white">Administration</a>
+					</li>
+				{% endif %}
 			</ul>
 			<ul class="navbar-nav mr-2 mb-2 mb-md-0">
 				<li class="nav-item m-2">
