@@ -9,15 +9,14 @@
 	<div class="container p-2">
 		<div id="header-person">
 			<form class="recherche" action="{{ path('person')}}">
-				<input id="q" type="search" placeholder="Tapez le numéro de la CIN du personne" aria-label="Search" name="q">
-				<button class="btn btn-outline-success" type="submit">
+				<input id="q" type="search" placeholder="Tapez le numéro de la CIN du personne" name="q">
+				<button type="submit">
 					<span class="fa fa-search"></span>
 				</button>
 			</form>
-			<a href="{{ path('person_register')}}" class="btn btn-outline-primary ml-2">Nouveau personne</a>
 		</div>
 		{% if persons is empty %}
-			<p class="text-center">Aucune personne dans la base de données</p>
+			<p class="text-center person_empty">Aucune personne dans la base de données</p>
 		{% else %}
 			<table class="table table-bordered text-center">
 				<thead>
@@ -50,5 +49,3 @@
 		{% endif %}
 	</div>
 {% endblock %}
-
-{% block javascripts %}{% endblock %}

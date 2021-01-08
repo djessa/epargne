@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+<nav class="navbar navbar-expand-xl navbar-dark fixed-top">
 	<div class="container-fluid">
 		<a id="nav-brand" class="navbar-brand text-info" href="{{ path('home') }}">
 			<i class="fa fa-bank"></i>
@@ -9,11 +9,18 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto mb-2 mb-md-0">
 				<li class="nav-item m-2">
-					<a href="{{ path('person') }}" class="nav-link btn btn-outline-info text-white">Service</a>
+					<a href="{{ path('person') }}" class="nav-link btn btn-outline-primary text-white">Acueil</a>
 				</li>
 				<li class="nav-item m-2">
-					<a href="#" class="nav-link btn btn-outline-info text-white">Historique</a>
+					<a href="{{ path('person_register')}}" class="nav-link btn btn-outline-primary text-white">Nouveau personne</a>
 				</li>
+				<li class="nav-item m-2">
+					<a href="#" class="nav-link btn btn-outline-primary text-white">Taux</a>
+				</li>
+				<li class="nav-item m-2">
+					<a href="#" class="nav-link btn btn-outline-primary text-white">Administration</a>
+				</li>
+
 			</ul>
 			<ul class="navbar-nav mr-2 mb-2 mb-md-0">
 				<li class="nav-item m-2">

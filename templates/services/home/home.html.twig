@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,43 +7,31 @@
 		{{ encore_entry_link_tags('front') }}
 	</head>
 	<body>
-		<div id="container" class="mt-2">
+		<div class="container">
 			<header>
-				<div id="title">
-					<h1>Digital Epargne Service</h1>
-					<div id="about">
-						Programmme de gestion du service epargne dans une société.
-					</div>
+				<h1>Digital Epargne Service</h1>
+				<div id="about">
+					Programmme de gestion du service epargne dans une société.
 				</div>
-				<a href="#contact" id="contact_btn">Contact</a>
-				<div id="contact">
-					<p class="m-2">
-						<i class="fa fa-phone"></i>
-						034 01 268 96</p>
-					<p class="m-2">
-						<i class="fa fa-google mr-1"></i>
-						s.djessa.2000@gmail.com</p>
-				</div>
+			</header>
+			<div id="taux">
+				<div class="taux">
+					{{ taux.valueOfOne }}
+					%</div>
+				<div class="taux">{{ taux.valueOfTwo }}
+					%</div>
+				<div class="taux">{{ taux.valueOfThree }}
+					%</div>
 			</div>
-		</header>
-		{% block body %}
-			<section>
-				<div id="login">
-					{% if not app.user %}
-						<a href="{{ path('security_login')}}">Connectez-vous</a>
-					{% else %}
-						<a href="{{ path('person') }}">Cliquez ici pour entrer</a>
-					{% endif %}
-				</div>
-				<div id="baniere">
-					<div class="taux">{{ taux.valueOfOne }}
-						%</div>
-					<div class="taux">{{ taux.valueOfTwo }}
-						%</div>
-					<div class="taux">{{ taux.valueOfThree }}
-						%</div>
-				</div>
-			</section>
-		{% endblock %}
+			<div id="login">
+				{% if not app.user %}
+					<a href="{{ path('security_login')}}">Connectez-vous</a>
+				{% else %}
+					<a href="{{ path('person') }}">Cliquez ici pour entrer</a>
+				{% endif %}
+			</div>
+		</div>
+
+
 	</body>
 </html></div>{{ encore_entry_script_tags('front') }}</body></html>

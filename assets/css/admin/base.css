@@ -1,0 +1,188 @@
+/* Body design */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Droid Sans Mono";
+    font-size: medium;
+    background-color: rgb(219, 211, 211);
+    color: black;
+    min-height: 75rem;
+    padding-top: 4.5rem;
+    box-sizing: border-box;
+}
+/* Navbar design */
+nav {
+    background: #08031a;
+}
+nav li a {
+    width: 150px;
+}
+
+#nav-brand {
+    font-size:1.5em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 100;
+}
+#nav-brand i {
+    color: white;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+#q {
+    border: none;
+    background: teal;
+    padding: 9px;
+    color: white;
+    margin-top:3px;
+    width:310px;
+    text-align:center;
+    border-radius:3px 0px 0px 3px;
+    outline:none;
+    font-size: 1.1em;
+    position:relative;
+    top:2px;
+    color:black;
+    border-color:rgba(0,0,255,0.6);
+}
+
+/* Person design */
+
+#header-person {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+#header-person button {
+    border: none !important;
+    padding: 10px;
+    margin-left: -3px;
+    position:relative;
+    top:1px;
+    border-radius:0px 3px 3px 0px;
+background: teal;
+}
+#header-person input::-webkit-input-placeholder {
+    color: rgb(219, 211, 211);
+}
+
+.person_empty {
+    font-size: 1.2em;
+    font-family: monospace;
+    color: orangered;
+}
+
+@media (max-width: 480px) {
+    #header-person   {
+        display: flex;
+        flex-direction: column;
+    }
+    #header-person #q   {
+            width: 240px;
+    }  
+    #header-person a {
+        width: 150px;
+    }
+}
+
+table tbody tr  td a:hover {
+    text-decoration: none;
+}
+a {
+    text-decoration: none !important;
+}
+#corporation a {
+    margin-top: 10px;
+}
+
+#header-corporation  {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 5px;
+}
+#btn-registration {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: 25%;
+}
+main {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+form[name="persons"]{
+   width: 90%;
+   height: auto;
+   margin: auto;
+   padding: 12px;
+   border-radius:5px;
+}
+
+form[name="corporations"]{
+   margin: auto;
+   padding: 12px;
+   border-radius:5px;
+}
+form[name="persons"] input {
+   outline:none;
+   box-sizing: border-box;
+   font-weight: bold;
+   padding: 10px 6px;
+   background:transparent;
+}
+#new_depot form {
+   margin-top: 20px;
+   border-radius: 5px;
+   padding: 9px;
+}
+
+#info-person   li {
+    list-style: none;
+}
+#info-person {
+    margin-top: 10px;
+}
+#info-person {
+    width:70%;
+    border: 1px solid violet;
+    margin-left:15%;
+}
+#info-person .label li {
+    font-weight: bold;
+}
+#info-person .value li {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#info-person li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid transparent;
+}
+.container-fluid a {
+    text-decoration: none;
+}
+#show th {
+    width: 360px;
+}
+#show a {
+    text-decoration: none;
+}
+#show td {
+    font-size: 1.1em;
+}
+
+@media (max-width: 1153px) {
+
+}
+
+
+
+

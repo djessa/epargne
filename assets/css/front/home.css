@@ -1,143 +1,165 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
-    background: #08031a;
-    color: white;
-}
-header {
-    display: flex;
-    align-items:center;
-    justify-content:space-between;
-    width: 100%;
-}
-header h1 {
-    font-size: 3em;
-    text-shadow: 2px 2px 0px blue, 4px 4px 0px orangered;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 500;
-    margin-left: 25px;
-}
-header #about {
-    color: rgba(255,255 , 255, 0.8);
-    opacity: 0.5;
-    text-align: center;
-    font-weight: 100;
-    margin-left: 25px;
-    font-family: 'Courier New', Courier, monospace;
-}
-header a {
-    text-decoration: none;
-    padding: 4px;
-    margin-right: 25px;
-    border: 1px solid white;
-    border-radius: 5px;
-    color: rgb(209, 181, 181);
-}
-header a:hover {
-    text-decoration: none;
-    background-color:rgb(255, 0, 0);
+    box-sizing: border-box;
+    background-color: teal;
     color: white;
 }
 
-section {
-    margin-top: 5%;
+.container {
     display: flex;
+    flex-direction: column;
     align-items:center;
-    justify-content:space-evenly;
-    width: 100%;
+    justify-content:space-between;
+    height: 100vh;
 }
-#baniere {
-    background-image: url('../../img/home.jpg');
-    border-radius: 10px;
-    width: 463px;
-    height: 260px;
-    display: flex;
-    align-items:flex-start;
-    justify-content: space-around;
-}
-#baniere .taux {
-    display: flex;
-    align-items: center;
+
+header {
     text-align: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-top:2px;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.5em;
-    width: 100px;
-    height:50px;
-    border: 1px solid white;
+    width: 100vh;
 }
-#baniere:hover {
-    box-shadow: 0px 0px 2px white;
+
+header h1 {
+    font-size: 3em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 2px 2px 0px black, 4px 4px 0px blue;
+}
+
+#about {
+    font-size: 1.2em;
+    font-family: monospace;
+    text-shadow: 1px 1px 0px black, 2px 2px 0px black;
+}
+
+#taux {
+    text-align: center;
+    width: 90vh;
+    height: 40vh;
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    background-image: url(../../img/bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0px 5px 0px black, 5px 0px 0px black, -5px 0px 0px black, 0px -5px 0px black;
+}
+
+.taux:hover {
+    background-color: pink;
+    animation: taux_hover 2s;
+    color: black;
+}
+
+@keyframes taux_hover {
+    25% {
+        transform: rotate(30deg);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+.taux {
+    box-shadow: 0px 1px 0px black, 1px 0px 0px black, -1px 0px 0px black, 0px -1px 0px black;
+    width: 120px;
+    border: 1px solid white;
+    background: rgba(0, 0, 0, 0.595);
+    height: 120px;
+    border-radius: 50px;
+    font-size: 2em;
+    margin: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
+
+#login {
+    text-align: center;
+    margin-bottom: 10%;
+    width: 100vh;
+    height: 50px;
+}
+
 #login a {
-    text-align: right;
     text-decoration: none;
     padding: 12px;
-    border: 1px solid white;
+    background-color: black;
+    border: 3px solid rgb(1, 19, 19);
     border-radius: 5px;
     color: white;
 }
+
 #login a:hover {
-    background-color: teal;
-    box-shadow: 0px 0px 2px white;
-    text-shadow: 0px 0px 2px black;
+    transform: scale(1.2);
+    background-color: green;
+
 }
-#contact {
-    display: none;
-    cursor: pointer;
-    margin-right: 25px;
-    border: 1px solid #dbad4f;
-    padding: 5px;
-    border-radius:38px 0px 38px 0px; 
-    box-shadow: -2px 5px 0px white, 0px 2px 0px rosybrown;
-}
+
 form {
-    margin-top: 10px;
     width: 360px;
+    height: 460px;
+    border: 2px solid white;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border:2px solid white;
-    text-align: center;
-    padding: 10px;
     border-radius: 10px;
-    box-shadow: -1px 1px 0px white, 0px 1px -1px white;
+    background: rgba(0, 0, 0, 0.595);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px 0px;
 }
-.text {
+
+input {
+    padding: 9px;
+    border: none;
+    outline: none;
     width: 80%;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding:9px;
     text-align: center;
-    background: none;
-    outline: none;
+    background: transparent;
+    font-size: 1.3em;
     color: white;
-    border-radius:12px;
+    border-bottom: 3px solid white;
 }
-.text:focus {
-    width: 90%;
-    border-color: teal;
-    font-size:1.2em;
+
+input:focus {
+    border-color: tomato;
+    transform: scale(1.1);
 }
-.btn-connexion {
-    width: 60%;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding:9px;
-    text-align: center;
-    background: none;
-    outline: none;
-    color: white;
-    border-radius:12px;
+
+form h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+}
+
+form button {
+    border: none;
+    padding: 10px;
     cursor: pointer;
+    background: darkgreen;
+    border-radius: 5px;
+    font-size: 1em;
+    color: white;
 }
-.btn-connexion:hover {
-    background: rgb(7, 155, 32);
+
+form button:hover {
+    background: rgb(86, 136, 86);
+}
+
+
+@media (max-width: 480px) {
+    form {
+        height: 90vh;
+    }
 }

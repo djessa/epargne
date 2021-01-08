@@ -1,9 +1,18 @@
-{% extends "home/home.html.twig" %}
-{% block body %}
-    <form action="{{ path('security_login')}}" class="container" method="post">
-        <h1>Connexion</h1>
-        <input type="text" class="text" placeholder="Nom d'utilisateur" name="_username">
-        <input type="password" class="text" placeholder="Mot de passe" name="_password">
-        <button class="btn-connexion">Connexion !</button>
-    </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Connexion</title>
+		{{ encore_entry_link_tags('front') }}
+	</head>
+	<body>
+		<form action="{{ path('security_login')}}" method="post">
+			<h1>Connexion</h1>
+			<input type="text" class="text" placeholder="Nom d'utilisateur" name="_username">
+			<input type="password" class="text" placeholder="Mot de passe" name="_password">
+			<button class="btn-connexion">Connexion !</button>
+		</form>
+		{{ encore_entry_script_tags('front') }}
+	</body>
+</html>

@@ -1,7 +1,9 @@
-/*import './styles/bootstrap.min.css';
-import './styles/font-awesome.css';
-import './styles/style.css';
-import './styles/person.css';
-import './styles/person_register.css';
-import './js/bootstrap.bundle.min.js';
-import './js/jquery.js';*/
+//Styles
+import './lib/bootstrap.min.css';
+import './lib/font-awesome.css';
+import './css/admin/base.css';
+
+
+//Scripts
+import './lib/bootstrap.bundle.min.js';
+import './lib/jquery.js';
