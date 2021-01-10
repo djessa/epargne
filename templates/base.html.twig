@@ -16,8 +16,8 @@
 			{% include 'layout/nav.html.twig' %}
 			{% block body %}{% endblock %}
 		{% else %}
-			<div class="alert alert-danger text-center">
-				Vous n'êtes pas connectés
+			<div class="alert alert-danger m-5 text-center">
+				Vous n'êtes pas connecté
 			</div>
 		{% endif %}
 		{{ encore_entry_script_tags('admin') }}

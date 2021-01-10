@@ -19,9 +19,6 @@ class PersonController extends AbstractController
      */
     public function  index()
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('home');
-        }
         //Recupération de liste des personnes et on passe à la vue avec des opérations concérnés
         $persons = $this->getDoctrine()->getRepository(Persons::class)->findBy([], ['id' => 'desc']);
         //S'il y a une recherche effectué sur la page 
