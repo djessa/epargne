@@ -12,7 +12,11 @@
 			<div class="card" id="card_taux">
 				<div class="card-header" style="height:65px;">
 					<form method="post" id="q_taux">
-						<input type="search" placeholder="Veuillez saisir l'année" name="year" id="year" class="form-control">
+						<select name="year" id="year" class="form-control text-center">
+							{% for year in years %}
+								<option value="{{ year }} ">{{ year }}</option>
+							{% endfor %}
+						</select>
 						<select id="month" name="month" class="form-control text-center">
 							<option value="January">Janvier</option>
 							<option value="February">Février</option>
