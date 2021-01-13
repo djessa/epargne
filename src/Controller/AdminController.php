@@ -25,7 +25,7 @@ class AdminController extends AbstractController
         }
     }
     /**
-     * @Route("/add-admin", name="add_admin")
+     * @Route("/init-project", name="add_admin")
      */
     public function addAdmin(UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
     {
