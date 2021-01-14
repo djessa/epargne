@@ -36,7 +36,11 @@ class DepotController extends AbstractController
      */
     public function new(Persons $persons, $id_morale, Request $request, EntityManagerInterface $entityManager): Response
     {
-
+        $depots = $this->getDoctrine()->getRepository(Depots::class)->findBy(['persons' => $persons], ['id' => 'desc']);
+        $date_depots = $depots[0]->getCreatedAt();
+        if ($date_depots->format('Y') == getdate()['year'] && $date_depots->format('m') == getdate()['mon'] && $date_depots->format('d') == getdate()['mday']) {
+            return new Response("<script>alert('Un client ne peut déposer qu\'une seule fois dans une journée');</script>");
+        }
         $fund = new Funds();
         $form = $this->createForm(FundsType::class, $fund);
         $form->handleRequest($request);
@@ -69,12 +73,12 @@ class DepotController extends AbstractController
      */
     public function remove(Depots $depots, EntityManagerInterface $entityManagerInterface, Request $request)
     {
+        $time = mktime(null, null, null, (int) $depots->getEndDate()->format('m'), (int)$depots->getEndDate()->format('d'), (int)$depots->getEndDate()->format('Y'));
+        if (time() < $time) {
+            $date = date('d/m/Y', $time);
+            return $this->render('services/depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat.', 'date' => $date]);
+        }
         if (!empty($_POST['person_id'])) {
-            $time = mktime(null, null, null, (int) $depots->getEndDate()->format('m'), (int)$depots->getEndDate()->format('d'), (int)$depots->getEndDate()->format('Y'));
-            if (time() < $time) {
-                $date = date('d/m/Y', $time);
-                return $this->render('services/depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat.', 'date' => $date]);
-            }
             $retrait = new Retraits();
             $retrait->setCreatedAt(new \DateTime());
             $retrait->setFund($depots->getFund());

@@ -9,7 +9,7 @@
 		<div class="form-control">
 			<label for="person">Rétiré par :
 			</label>
-			<a href="{{ path('show', {'id':retraits.person.id}) }}">{{ retraits.person.name }}</a>
+			<a href="{{ path('person_show', {'id':retraits.person.id}) }}">{{ retraits.person.name }}</a>
 		</div>
 	</div>
 {% endblock %}
