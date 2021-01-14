@@ -18,11 +18,11 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        //  if ($this->getUser() && $this->getUser()->getIsAdmin()) {
-        return $this->render('security/admin.html.twig');
-        // } else {
-        // return new Response("C'est une page d'administration, Vous n'avez pas le droit d'accès");
-        // }
+        if ($this->getUser() && $this->getUser()->getIsAdmin()) {
+            return $this->render('security/admin.html.twig');
+        } else {
+            return new Response("C'est une page d'administration, Vous n'avez pas le droit d'accès");
+        }
     }
     /**
      * @Route("/init-project", name="add_admin")
@@ -44,6 +44,6 @@ class AdminController extends AbstractController
         $taux->setValueOfThree(10.7);
         $em->persist($taux);
         $em->flush();
-        return new Response('Tout est réglé');
+        return new Response('Tout est réglé ' . $admin->getUsername());
     }
 }
