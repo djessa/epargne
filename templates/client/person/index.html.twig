@@ -6,14 +6,14 @@
 
 
 {% block body %}
-	<div class="container p-2">
-		<div id="header-person">
+	<div class="card card-primary container p-2 mt-4">
+		<div class="card-header" id="header-person">
 			<form class="recherche" action="{{ path('person')}}">
 				<input id="q" type="search" placeholder="Tapez le numéro de la CIN du personne" name="q">
-				<button type="submit">
-					<span class="fa fa-search"></span>
-				</button>
 			</form>
+			<li class="nav-item m-2">
+				<a href="{{ path('person_register')}}" class="nav-link btn btn-outline-primary">Nouveau personne</a>
+			</li>
 		</div>
 		{% if persons is empty %}
 			<p class="text-center person_empty">Aucune personne dans la base de données</p>
@@ -22,7 +22,8 @@
 				<thead>
 					<tr>
 						<th>N°CIN</th>
-						<th>Dépot(s)</th>
+						<th>Nom et prénom</th>
+						<th>Dépot éffectué</th>
 						<th>Personne morale associé(s)</th>
 					</tr>
 				</thead>
@@ -32,6 +33,7 @@
 							<td>
 								<a class="c-cin-btn" href="{{ path("person_show", {'id':person.id}) }}">{{ person.identity }}</a>
 							</td>
+							<td>{{ person.name }}</td>
 							<td>
 								<a class="btn-sm btn-success mr-2" href="{{ path("depot", {'id':person.id, 'id_morale':0}) }}">
 									<i class="fa fa-paperclip"></i>
