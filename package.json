@@ -1,4 +1,8 @@
 {
+    "engines": {
+        "node": "v14.15.3",
+        "npm": "6.14.9"
+    },
     "devDependencies": {
         "@symfony/stimulus-bridge": "^1.1.0",
         "@symfony/webpack-encore": "^0.32.0",
@@ -12,8 +16,8 @@
     "scripts": {
         "dev-server": "encore dev-server",
         "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress",
-        "heroku-postbuild": "webpack -p"
+        "watch": "webpack -d --watch --config ./webpack.config.js --display-error-details",
+        "build": "webpack -p --config ./webpack.config.js --display-error-details",
+        "heroku-postbuild": "webpack -p --config ./webpack.config.js"
     }
 }
