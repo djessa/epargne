@@ -18,7 +18,7 @@ class RatesController extends AbstractController
      */
     public function index(RatesRepository $ratesRepository): Response
     {
-        $data['current'] = $ratesRepository->findOneBy(['year' => getdate()['year'], 'month' => getdate()['month']]);
+        $data = [];
         if (isset($_POST['year'], $_POST['month'])) {
             $result = $ratesRepository->findOneBy(['year' => $_POST['year'], 'month' => $_POST['month']]);
             if ($result) {
@@ -27,7 +27,12 @@ class RatesController extends AbstractController
                 $data['error'] = "Il n'y aucune taux pour cette periode";
             }
         }
-        return $this->render('services/rates/index.html.twig', ['data' => $data, 'rates_nav' => true]);
+        $rates = $ratesRepository->findAll();
+        foreach ($rates as $rate) {
+            $year[] = $rate->getYear();
+        }
+        $year = array_keys(array_count_values($year));
+        return $this->render('services/rates/index.html.twig', ['years' => $year, 'data' => $data]);
     }
 
     public function new(EntityManagerInterface $entityManager, Request $request): Response

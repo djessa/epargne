@@ -36,7 +36,7 @@ nav li a {
     border: none;
     background: teal;
     padding: 9px;
-    color: white;
+    color: white !important;
     margin-top:3px;
     width:310px;
     text-align:center;
@@ -45,10 +45,12 @@ nav li a {
     font-size: 1.1em;
     position:relative;
     top:2px;
-    color:black;
     border-color:rgba(0,0,255,0.6);
 }
 
+#q::-webkit-input-placeholder {
+    color: white !important;
+}
 /* Person design */
 
 #header-person {

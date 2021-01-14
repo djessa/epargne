@@ -23,4 +23,4 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 ### Images
-/public/images/
+/public/images
