@@ -18,10 +18,10 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        /*  if ($this->getUser() && $this->getUser()->getIsAdmin()) {
-            return $this->render('security/admin.html.twig');
-        } else {*/
-        return new Response("C'est une page d'administration, Vous n'avez pas le droit d'accès");
+        //  if ($this->getUser() && $this->getUser()->getIsAdmin()) {
+        return $this->render('security/admin.html.twig');
+        // } else {
+        // return new Response("C'est une page d'administration, Vous n'avez pas le droit d'accès");
         // }
     }
     /**
