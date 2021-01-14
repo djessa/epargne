@@ -18,9 +18,9 @@ class SecurityController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $objectManager, UserPasswordEncoderInterface $encoder): Response
     {
-        /* if (!($this->getUser() && $this->getUser()->getIsAdmin())) {
+        if (!($this->getUser() && $this->getUser()->getIsAdmin())) {
             return new Response("C'est une page d'administration, Vous n'avez pas le droit d'accès");
-        }*/
+        }
         $user = new Users();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);

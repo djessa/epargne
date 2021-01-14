@@ -37,9 +37,11 @@ class DepotController extends AbstractController
     public function new(Persons $persons, $id_morale, Request $request, EntityManagerInterface $entityManager): Response
     {
         $depots = $this->getDoctrine()->getRepository(Depots::class)->findBy(['persons' => $persons], ['id' => 'desc']);
-        $date_depots = $depots[0]->getCreatedAt();
-        if ($date_depots->format('Y') == getdate()['year'] && $date_depots->format('m') == getdate()['mon'] && $date_depots->format('d') == getdate()['mday']) {
-            return new Response("<script>alert('Un client ne peut déposer qu\'une seule fois dans une journée');</script>");
+        if (!empty($depots)) {
+            $date_depots = $depots[0]->getCreatedAt();
+            if ($date_depots->format('Y') == getdate()['year'] && $date_depots->format('m') == getdate()['mon'] && $date_depots->format('d') == getdate()['mday']) {
+                return new Response("<script>alert('Un client ne peut déposer qu\'une seule fois dans une journée');</script>");
+            }
         }
         $fund = new Funds();
         $form = $this->createForm(FundsType::class, $fund);
