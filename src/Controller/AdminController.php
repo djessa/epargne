@@ -30,20 +30,20 @@ class AdminController extends AbstractController
     public function addAdmin(UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
     {
         $admin  = new Users();
-        $admin->setUsername('djessa');
+        $admin->setUsername('zo');
         $admin->setPassword('admindjessa');
-        $admin->setIsAdmin(true);
+        $admin->setIsAdmin(false);
         $hash = $encoder->encodePassword($admin, $admin->getPassword());
         $admin->setPassword($hash);
         $em->persist($admin);
         $taux = new Rates();
         $taux->setYear(2021);
-        $taux->setMonth('January');
+        $taux->setMonth('Fevrier');
         $taux->setValueOfOne(7.9);
         $taux->setValueOfTwo(9.6);
         $taux->setValueOfThree(10.7);
         $em->persist($taux);
         $em->flush();
-        return new Response('Tout est réglé ' . $admin->getUsername());
+        return new Response('Tout est réglé ' . $admin->getUsername() . ' ' .  $admin->getId());
     }
 }
