@@ -65,9 +65,20 @@ class DepotController extends AbstractController
             $entityManager->persist($fund);
             $entityManager->persist($depot);
             $entityManager->flush();
-            return $this->redirectToRoute('depot', [
-                'id' => $persons->getId(),
-                'id_morale' => $id_morale
+            $html = $this->renderView('layout/contrat.html.twig', [
+                'date' => new \DateTime(),
+                'person' => $persons,
+                'depot' => $depot,
+            ]);
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+            $dompdf->stream("_CDC_PackDigital.pdf", [
+                "Attachment" => false
+            ]);
+            return new Response('', 200, [
+                'Content-Type' => 'application/pdf',
             ]);
         }
         return $this->render(
@@ -134,17 +145,26 @@ class DepotController extends AbstractController
      */
     public function dompdf()
     {
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $dompdf = new Dompdf($pdfOptions);
         $html = $this->renderView('layout/contrat.html.twig', [
-            'title' => "Welcome to our PDF Test"
+            'date' => new \DateTime()
         ]);
+
+        $dompdf = new Dompdf();
+
         $dompdf->loadHtml($html);
+
         $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
         $dompdf->render();
-        $dompdf->stream("mypdf.pdf", [
-            "Attachment" => true
+        // dd($dompdf);
+
+        // Output the generated PDF to Browser
+        $dompdf->stream("_CDC_PackDigital.pdf", [
+            "Attachment" => false
+        ]);
+        return new Response('', 200, [
+            'Content-Type' => 'application/pdf',
         ]);
     }
 }

@@ -1,11 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Contrat</title>
 	</head>
 	<body>
-		<h1>Contrat</h1>
+		<div>
+			<div style="float: right;margin-top: -20px;">
+				<p>Mahajanga , le
+					{{ date | date('d/m/Y') }}</p>
+			</div>
+			<div>
+				<p>SERVICE EPARGNE</p>
+				<p>Majunga be lot 0033AI212</p>
+			</div>
+			<div style="margin-top: 20px;">
+				<p style="text-align: center;">
+					Mr/Mme
+					{{ person.name }}
+					, identifié par les informations ci-dessous :
+				</p>
+				<div style="margin-left: 50px;">
+					<p>Nationalité :
+						{{ person.nationality }}</p>
+					<p>CIN :
+						{{ person.identity }}</p>
+
+					<p>Adresse:
+						{{ person.address }}</p>
+				</div>
+				<p style="margin-left: 50px;">a déposé une caisse
+					{% if morale is defined %}
+						sur le nom du
+						{{ morale }}
+					{% endif %}.</p>
+
+			</div>
+			<div style="margin-left: 50px;">
+				<p style="margin-bottom: 20px;text-decoration: underline;">Information sur le dépot:</p>
+				<div style="margin-left: 70px;">
+					<p>Date de début :
+						{{ depot.createdAt | date('d/m/Y') }}</p>
+
+
+					<p>Délai du Contrat :
+						{{ depot.fund.duration }}</p>
+
+					<p>Taux correspond :
+						{{ depot.taux }}
+						%</p>
+					<p>Date de fin :
+						{{ depot.endDate | date('d/m/Y')}}</p>
+
+					<p>Montant déposé :
+						{{ depot.fund.value }}
+						Ar
+					</p>
+					<p>Montant total à la fin du contrat :
+						{{ depot.capitaux }}</p>
+					Ar
+				</div>
+			</div>
+			<p style="float: right;">Signature</p>
+
+		</div>
 	</body>
-</html>
+</html></div></body></html>
