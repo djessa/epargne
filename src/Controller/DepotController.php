@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class DepotController extends AbstractController
 {
@@ -126,5 +128,23 @@ class DepotController extends AbstractController
             $proprietaire['corporation'] = $corporations->getId();
         }
         return $proprietaire;
+    }
+    /**
+     * @Route("/dompdf", name="dompdf")
+     */
+    public function dompdf()
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($pdfOptions);
+        $html = $this->renderView('layout/contrat.html.twig', [
+            'title' => "Welcome to our PDF Test"
+        ]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true
+        ]);
     }
 }
