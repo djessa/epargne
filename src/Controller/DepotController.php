@@ -58,9 +58,11 @@ class DepotController extends AbstractController
             $depot->setEndDate(new \DateTime(date('Y-m-d H:m:s', time() + $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60)));
             $depot->setFund($fund);
             $depot->setPersons($persons);
+            $morale = null;
             if ($id_morale != 0) {
                 $corporations = $this->getDoctrine()->getRepository(Corporations::class)->find($id_morale);
                 $depot->setCorporations($corporations);
+                $morale = $corporations->getSocialReason();
             }
             $entityManager->persist($fund);
             $entityManager->persist($depot);
@@ -69,6 +71,7 @@ class DepotController extends AbstractController
                 'date' => new \DateTime(),
                 'person' => $persons,
                 'depot' => $depot,
+                'morale' => $morale
             ]);
             $dompdf = new Dompdf();
             $dompdf->loadHtml($html);

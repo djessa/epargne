@@ -17,7 +17,6 @@
 			</div>
 			<div style="margin-top: 20px;">
 				<p style="text-align: center;">
-					Mr/Mme
 					{{ person.name }}
 					, identifié par les informations ci-dessous :
 				</p>
@@ -31,39 +30,39 @@
 						{{ person.address }}</p>
 				</div>
 				<p style="margin-left: 50px;">a déposé une caisse
-					{% if morale is defined %}
-						sur le nom du
-						{{ morale }}
-					{% endif %}.</p>
+					<b>
+						{% if morale %}
+							sur le nom de
+							{{ morale }}
 
+
+						{% endif %}.</b>
+				</p>
 			</div>
 			<div style="margin-left: 50px;">
 				<p style="margin-bottom: 20px;text-decoration: underline;">Information sur le dépot:</p>
 				<div style="margin-left: 70px;">
 					<p>Date de début :
 						{{ depot.createdAt | date('d/m/Y') }}</p>
-
-
 					<p>Délai du Contrat :
-						{{ depot.fund.duration }}</p>
-
+						{{ depot.fund.duration }}
+						ans</p>
 					<p>Taux correspond :
 						{{ depot.taux }}
 						%</p>
 					<p>Date de fin :
 						{{ depot.endDate | date('d/m/Y')}}</p>
-
 					<p>Montant déposé :
 						{{ depot.fund.value }}
 						Ar
 					</p>
 					<p>Montant total à la fin du contrat :
-						{{ depot.capitaux }}</p>
-					Ar
+						{{ depot.capitaux }}
+						Ar
+					</p>
 				</div>
 			</div>
 			<p style="float: right;">Signature</p>
-
-		</div>
+		</body>
 	</body>
-</html></div></body></html>
+</html></div></body></html></div></body></html>
