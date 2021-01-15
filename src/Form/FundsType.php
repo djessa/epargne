@@ -14,10 +14,9 @@ class FundsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('value', null, ['label'=>'Montant à deposer'])
-            ->add('piece_obtaining_file', FileType::class, ['label'=>'Pièce d\'obtention'])
-            ->add('duration', ChoiceType::class, ['label'=>'Durée', 'choices'=>["1 ans " =>1,"2 ans " => 2,"3 ans " =>3]])
-        ;
+            ->add('value', null, ['attr' => ['placeholder' => 'Veuillez saisie un montant supérieur ou égal à 1 000 000 MGA'], 'label' => 'Montant à deposer'])
+            ->add('piece_obtaining_file', FileType::class, ['label' => 'Pièce d\'obtention'])
+            ->add('duration', ChoiceType::class, ['label' => 'Durée', 'choices' => ["1 ans " => 1, "2 ans " => 2, "3 ans " => 3]]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -26,5 +25,4 @@ class FundsType extends AbstractType
             'data_class' => Funds::class,
         ]);
     }
-
 }

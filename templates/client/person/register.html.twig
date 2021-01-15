@@ -6,13 +6,19 @@
 
 
 {% block body %}
-	<div class="container">
-		{{ form_start(form) }}
-		<h3 class="text-center m-3 text-info">Ajouter un nouvel personne physique</h1>
-		{{ form_widget(form) }}
-		<div class="mt-5">
-			<button type="submit" class="btn btn-primary">Enregistrer</button>
+	<div class="card container p-0 mt-2" style="width: 60%;min-width:480px;font-style:italic;">
+		<div class="card-header">
+			<h5>
+				<i>Inscription</i>
+			</h5>
 		</div>
-		{{ form_end(form) }}
+		<div class="card-body">
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+			<div class="mt-2">
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
+			</div>
+			{{ form_end(form) }}
+		</div>
 	</div>
 {% endblock %}

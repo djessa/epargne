@@ -1,24 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container" id="corporation">
-		<div id="header-corporation">
+	<div class="card container p-0 mt-2" id="corporation">
+		<div class="card-header" id="header-corporation">
 			<p>
 				<strong>Personne responsable:</strong>
-				{{ persons.name }}
-			</p>
+				{{ persons.name }}</p>
 			<p>
 				<strong>N°CIN :</strong>
 				{{ persons.identity }}
 			</p>
 			<a href="{{ path('corporation_register', {'id':persons.id}) }}" class="btn-sm btn-warning">Nouveau personne  morale</a>
 		</div>
-		{{ form_start(form) }}
-		{{form_widget(form) }}
-		<div id="btn-registration">
-			<button type="submit" class="btn btn-success">Enregistrer</button>
-			<a href="{{ path('corporation', {'id':persons.id}) }}" class="btn btn-secondary">Retour</a>
+		<div class="card-body">
+			{{ form_start(form) }}
+			{{form_widget(form) }}
+			<div id="btn-registration">
+				<button type="submit" class="btn btn-success">Enregistrer</button>
+				<a href="{{ path('corporation', {'id':persons.id}) }}" class="btn btn-default">Retour</a>
+			</div>
+			{{ form_end(form) }}
 		</div>
-		{{ form_end(form) }}
+
 	</div>
 {% endblock %}

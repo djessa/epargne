@@ -3,8 +3,8 @@
 	{{ persons.name }}
 {% endblock %}
 {% block body %}
-	<div class="container" id="corporation">
-		<div id="header-corporation">
+	<div class="card container mt-2 p-0" id="corporation">
+		<div class="card-header" id="header-corporation">
 			<p>
 				<strong>Personne responsable:</strong>
 				{{ persons.name }}
@@ -15,37 +15,40 @@
 			</p>
 			<a href="{{ path('corporation_register', {'id':persons.id}) }}" class="btn-sm btn-warning">Nouveau personne  morale</a>
 		</div>
-		{% if corporations is empty %}
-			<p class="text-center text-info person_empty">
-				Aucune personne morale associé
-			</p>
-		{% else %}
-			<table class="table bg-white table-bordered text-center">
-				<thead>
-					<tr>
-						<th>Raison sociale</th>
-						<th>Adresse</th>
-						<th>Pièce d'autorisation</th>
-						<th>Dépot(s)</th>
-					</tr>
-				</thead>
-				<tbody class="text-primary">
-					{% for corporation in corporations %}
+		<div class="card-body">
+			{% if corporations is empty %}
+				<p class="text-center text-info person_empty">
+					Aucune personne morale associé
+				</p>
+			{% else %}
+				<table class="table bg-white table-bordered text-center">
+					<thead>
 						<tr>
-							<td>{{ corporation.socialReason }}</td>
-							<td>{{ corporation.address }}</td>
-							<td>
-								<a href="/images/piece_person/{{corporation.piecePerson}}" class="btn-sm btn-primary">Aperçu</a>
-							</td>
-							<td>
-								<a href="{{ path('depot', {'id':persons.id, 'id_morale':corporation.id})}}" class="btn-sm btn-success mr-2" href="">Voir la liste</a>
-							</td>
+							<th>Raison sociale</th>
+							<th>Adresse</th>
+							<th>Pièce d'autorisation</th>
+							<th>Dépot(s)</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		{% endif %}
-		<a href="{{ path('person')}}" class="btn-sm btn-primary">Retour au menu</a>
+					</thead>
+					<tbody class="text-primary">
+						{% for corporation in corporations %}
+							<tr>
+								<td>{{ corporation.socialReason }}</td>
+								<td>{{ corporation.address }}</td>
+								<td>
+									<a href="/images/piece_person/{{corporation.piecePerson}}" class="btn-sm btn-primary">Aperçu</a>
+								</td>
+								<td>
+									<a href="{{ path('depot', {'id':persons.id, 'id_morale':corporation.id})}}" class="btn-sm btn-success mr-2" href="">Voir la liste</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+			<a href="{{ path('person')}}" class="btn-sm btn-primary">Retour au menu</a>
+		</div>
+
 	</div>
 {% endblock %}
 

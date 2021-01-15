@@ -112,8 +112,8 @@ a {
 #btn-registration {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    margin-left: 25%;
+    width: 30%;
+    margin-left: 35%;
 }
 
 form[name="corporations"]{
@@ -149,7 +149,12 @@ form[name="corporations"]{
     text-decoration: none;
 }
 #show th {
-    width: 360px;
+    width: 50%;
+}
+#show  {
+    width: 900px;
+    margin: auto;
+    margin-bottom: 5px;
 }
 #show a {
     text-decoration: none;

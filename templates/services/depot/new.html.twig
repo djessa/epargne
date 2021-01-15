@@ -1,12 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	<div class="container mt-5">
-		{{ form_start(form) }}
-		{{form_widget(form) }}
-		<div id="btn-registration">
-			<button type="submit" class="btn btn-success mb-2">Enregistrer</button>
-			<a href="./" class="btn btn-secondary">Retour</a>
+	<div class="card container mt-2 p-0" style="width:60%;min-width:480px;">
+		<div class="card-header">
+			<h5>
+				<i>Nouvelle contrat</i>
+				<i class="ml-2">au nom de :
+					<b>
+						{{ proprietaire.name }}
+					</b>
+				</i>
+
+			</h5>
 		</div>
-		{{ form_end(form) }}
+		<div class="card-body">
+			{{ form_start(form) }}
+			{{form_widget(form) }}
+			<div id="btn-registration">
+				<button type="submit" class="btn btn-success mb-2">Enregistrer</button>
+				<a href="./" class="btn btn-secondary">Retour</a>
+			</div>
+			{{ form_end(form) }}
+		</div>
 	</div>
 {% endblock %}

@@ -36,7 +36,10 @@ class DepotController extends AbstractController
      */
     public function new(Persons $persons, $id_morale, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $depots = $this->getDoctrine()->getRepository(Depots::class)->findBy(['persons' => $persons], ['id' => 'desc']);
+        if ($id_morale == 0)
+            $depots = $this->getDoctrine()->getRepository(Depots::class)->findBy(['persons' => $persons], ['id' => 'desc']);
+        else
+            $depots =  $this->getDoctrine()->getRepository(Depots::class)->findBy(['corporations' => $this->getDoctrine()->getRepository(Corporations::class)->findOneBy(['id' => $id_morale])], ['id' => 'desc']);
         if (!empty($depots)) {
             $date_depots = $depots[0]->getCreatedAt();
             if ($date_depots->format('Y') == getdate()['year'] && $date_depots->format('m') == getdate()['mon'] && $date_depots->format('d') == getdate()['mday']) {
