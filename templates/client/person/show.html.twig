@@ -1,20 +1,17 @@
 {% extends 'layout/base.html.twig' %}
 
 {% block title %}
-	{{ persons.name }}
+Information personnel
 {% endblock %}
 
 {% block body %}
 	<div class="card container mt-2 p-0" id="show">
 		<div class="card-header">
-			<h5 class="text-center text-info">Information personnel</h5>
+<h5 class="text-center text-info">Mr/Mme {{ persons.name }}</h5>
+
 		</div>
 		<div class="card-body">
 			<table class="table bg-white table-bordered text-center">
-				<tr>
-					<th>Nom et prénom</th>
-					<td>{{ persons.name }}</td>
-				</tr>
 				<tr>
 					<th>Nationalité</th>
 					<td>{{ persons.nationality }}</td>

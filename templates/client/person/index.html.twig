@@ -9,14 +9,12 @@
 	<div class="card card-primary container  mt-1 p-0">
 		<div class="card-header" id="header-person">
 			<form class="recherche" action="{{ path('person')}}">
-				<input id="q" type="search" placeholder="Tapez le numéro de la CIN du personne" name="q">
-				<button type="submit" style="margin-left:-10px !important;height:45px;">
+				<input id="q" type="search" placeholder="Veuillez saisir un numéro du CIN" name="q">
+				<button type="submit" style="margin-left:-10px !important;height:44px;">
 					<span class="fa fa-search text-white"></span>
 				</button>
 			</form>
-			<li class="nav-item m-2">
-				<a href="{{ path('person_register')}}" class="nav-link btn btn-outline-primary">Nouveau personne</a>
-			</li>
+			<a href="{{ path('person_register')}}" class="m-2 p-2 btn btn-outline-primary">Nouveau personne</a>
 		</div>
 		<div class="card-body">
 			{% if persons is empty %}

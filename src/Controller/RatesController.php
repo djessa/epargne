@@ -46,6 +46,7 @@ class RatesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($rate);
             $entityManager->flush();
+            $this->addFlash('success', 'Un taux a bien été ajouté avec succès');
             return $this->redirectToRoute('rates');
         }
         return $this->render('services/rates/new.html.twig', ['form' => $form->createView(), 'rates_nav' => true]);

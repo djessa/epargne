@@ -1,30 +1,35 @@
 <?php
 
 namespace App\Controller;
-use App\Repository\DepotsRepository;
-use App\Entity\Corporations;
-use App\Entity\Depots;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Funds;
-use App\Entity\Persons;
 use App\Entity\Rates;
-use App\Entity\Retraits;
+use App\Entity\Depots;
+use App\Entity\Persons;
 use App\Form\FundsType;
+use App\Entity\Retraits;
+use App\Entity\Corporations;
+use App\Repository\DepotsRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DepotController extends AbstractController
 {
 
     private $depots;
-    public function __construct(DepotsRepository $dr)
+    private $em;
+    private $request;
+
+    public function __construct(DepotsRepository $dr, EntityManagerInterface $em)
     {
         $this->depots = $dr;
+        $this->em = $em;
+        $this->request = Request::createFromGlobals();
     }
 
     /**
@@ -43,7 +48,7 @@ class DepotController extends AbstractController
     /**
      * @Route("{id}/{id_morale}/depot/new", name="depot_new")
      */
-    public function new(Persons $persons, $id_morale, Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Persons $persons, $id_morale): Response
     {
         if ($id_morale == 0)
             $depots = $this->depots->findBy(['persons' => $persons], ['id' => 'desc']);
@@ -58,7 +63,7 @@ class DepotController extends AbstractController
         }
         $fund = new Funds();
         $form = $this->createForm(FundsType::class, $fund);
-        $form->handleRequest($request);
+        $form->handleRequest($this->request);
         if ($form->isSubmitted() && $form->isValid()) {
             $fund->setRate($this->getDoctrine()->getRepository(Rates::class)->findOneBy(['month' => getdate()['month'], 'year' => getdate()['year']]));
             $depot = new Depots();
@@ -66,31 +71,15 @@ class DepotController extends AbstractController
             $depot->setEndDate(new \DateTime(date('Y-m-d H:m:s', time() + $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60)));
             $depot->setFund($fund);
             $depot->setPersons($persons);
-            $morale = null;
             if ($id_morale != 0) {
                 $corporations = $this->getDoctrine()->getRepository(Corporations::class)->find($id_morale);
                 $depot->setCorporations($corporations);
-                $morale = $corporations->getSocialReason();
             }
-            $entityManager->persist($fund);
-            $entityManager->persist($depot);
-            $entityManager->flush();
-            $html = $this->renderView('layout/contrat.html.twig', [
-                'date' => new \DateTime(),
-                'person' => $persons,
-                'depot' => $depot,
-                'morale' => $morale
-            ]);
-            $dompdf = new Dompdf();
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'portrait');
-            $dompdf->render();
-            $dompdf->stream("_CDC_PackDigital.pdf", [
-                "Attachment" => false
-            ]);
-            return new Response('', 200, [
-                'Content-Type' => 'application/pdf',
-            ]);
+            $this->em->persist($fund);
+            $this->em->persist($depot);
+            $this->em->flush();
+            $this->addFlash('success', 'Un depot a bien été enregistré avec succès');
+            return $this->redirectToRoute('depot', ['id' => $persons->getId(), 'id_morale' => $id_morale]);
         }
         return $this->render(
             'services/depot/new.html.twig',
@@ -100,12 +89,13 @@ class DepotController extends AbstractController
     /**
      * @Route("/{id}/remove", name="remove")
      */
-    public function remove(Depots $depots, EntityManagerInterface $entityManagerInterface, Request $request)
+    public function remove(Depots $depots)
     {
         $time = mktime(null, null, null, (int) $depots->getEndDate()->format('m'), (int)$depots->getEndDate()->format('d'), (int)$depots->getEndDate()->format('Y'));
         if (time() < $time) {
             $date = date('d/m/Y', $time);
-            return $this->render('services/depot/error.html.twig', ['message' => 'Cette caisse ne peut pas être rétirer selon le contrat.', 'date' => $date]);
+            $this->addFlash('danger', 'Cette caisse ne peut pas encore être retirer parcequ\'on a pas atteint la fin de delai');
+            return $this->redirectToRoute('depot', ['id' => $depots->getPersons()->getId(), 'id_morale' => ($depots->getCorporations()) ? $depots->getCorporations()->getId() : 0]);
         }
         if (!empty($_POST['person_id'])) {
             $retrait = new Retraits();
@@ -113,19 +103,21 @@ class DepotController extends AbstractController
             $retrait->setFund($depots->getFund());
             $persons = $this->getDoctrine()->getRepository(Persons::class)->findOneBy(['identity' => $_POST['person_id']]);
             if (!$persons) {
-                return $this->render('services/depot/error.html.twig', ['message' => 'Cette personne doit s\'inscrire parce qu\'il n\'est pas connu']);
+                $this->addFlash('danger', 'Cette personne doit s\'inscrire parce qu\'il n\'est pas connu dans notre service');
+            } else {
+                $retrait->setPerson($persons);
+                $depots->setIsRetired(true);
+                $this->em->persist($retrait);
+                $this->em->flush();
+                $this->addFlash('success', 'Une caisse a bien été retirée avec succès');
+                return $this->redirectToRoute(
+                    'depot',
+                    [
+                        'id' => $depots->getPersons()->getId(),
+                        'id_morale' => ($depots->getCorporations() != null) ? $depots->getCorporations()->getId() : 0
+                    ]
+                );
             }
-            $retrait->setPerson($persons);
-            $depots->setIsRetired(true);
-            $entityManagerInterface->persist($retrait);
-            $entityManagerInterface->flush();
-            return $this->redirectToRoute(
-                'depot',
-                [
-                    'id' => $depots->getPersons()->getId(),
-                    'id_morale' => ($depots->getCorporations() != null) ? $depots->getCorporations()->getId() : 0
-                ]
-            );
         }
         return $this->render('services/retrait/new.html.twig', compact('depots'));
     }
@@ -152,12 +144,15 @@ class DepotController extends AbstractController
         return $proprietaire;
     }
     /**
-     * @Route("/dompdf", name="dompdf")
+     * @Route("/contrat/{id}", name="contrat")
      */
-    public function dompdf()
+    public function printContrat(Depots $depot)
     {
         $html = $this->renderView('layout/contrat.html.twig', [
-            'date' => new \DateTime()
+            'date' => new \DateTime(),
+            'person' => $depot->getPersons(),
+            'depot' => $depot,
+            'morale' => $depot->getCorporations() ? $depot->getCorporations()->getSocialReason() : null
         ]);
 
         $dompdf = new Dompdf();

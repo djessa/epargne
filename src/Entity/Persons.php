@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Traits\UpdatedTime;
 use App\Repository\PersonsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Persons
 {
+    use UpdatedTime;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -159,10 +160,6 @@ class Persons
      */
     private $retraits;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updated_at;
 
     /**
      * @ORM\OneToMany(targetEntity=Depots::class, mappedBy="persons")
@@ -349,18 +346,6 @@ class Persons
                 $retrait->setPerson(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }

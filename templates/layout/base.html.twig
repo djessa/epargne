@@ -18,7 +18,8 @@
 			{% endblock %}
 		{% else %}
 			<div class="alert alert-danger m-5 text-center">
-				Vous n'êtes pas connecté
+				Vous n'êtes pas connecté <br>
+				<a href="{{ path('users_login') }} " class="btn-sm btn-primary mt-2">S'identifier</a>
 			</div>
 		{% endif %}
 	</body>

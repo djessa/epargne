@@ -45,6 +45,7 @@
 								<td>{{ depot.capitaux }}
 									MGA</td>
 								<td>
+									<a class="btn-sm btn-info mr-1" href="{{ path('contrat', {'id': depot.id}) }}">Imprimer</a>
 									{% if depot.isRetired is  null %}
 										<a class="btn-sm btn-danger" href="{{ path('remove', {'id':depot.id})}}">Rétirer</a>
 									{% else %}
