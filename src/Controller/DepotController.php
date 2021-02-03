@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\DepotsRepository;
 use App\Entity\Corporations;
 use App\Entity\Depots;
 use App\Entity\Funds;
@@ -20,8 +20,15 @@ use Dompdf\Options;
 
 class DepotController extends AbstractController
 {
+
+    private $depots;
+    public function __construct(DepotsRepository $dr)
+    {
+        $this->depots = $dr;
+    }
+
     /**
-     * @Route("{id}/{id_morale}/depot", name="depot")
+     * @Route("/depot/{id}/{id_morale}", name="depot")
      */
     public function index(Persons $persons, $id_morale): Response
     {
@@ -29,7 +36,7 @@ class DepotController extends AbstractController
             'services/depot/index.html.twig',
             [
                 'proprietaire' => $this->proprietaire($persons, $id_morale),
-                'depots' => $this->getDoctrine()->getRepository(Depots::class)->findBy(['persons' => $persons, 'corporations' => $this->proprietaire($persons, $id_morale)['corporations']], ['id' => 'desc'])
+                'depots' => $this->depots->findBy(['persons' => $persons, 'corporations' => $this->proprietaire($persons, $id_morale)['corporations']], ['id' => 'desc'])
             ]
         );
     }
@@ -39,13 +46,14 @@ class DepotController extends AbstractController
     public function new(Persons $persons, $id_morale, Request $request, EntityManagerInterface $entityManager): Response
     {
         if ($id_morale == 0)
-            $depots = $this->getDoctrine()->getRepository(Depots::class)->findBy(['persons' => $persons], ['id' => 'desc']);
+            $depots = $this->depots->findBy(['persons' => $persons], ['id' => 'desc']);
         else
-            $depots =  $this->getDoctrine()->getRepository(Depots::class)->findBy(['corporations' => $this->getDoctrine()->getRepository(Corporations::class)->findOneBy(['id' => $id_morale])], ['id' => 'desc']);
+            $depots =  $this->depots->findBy(['corporations' => $this->getDoctrine()->getRepository(Corporations::class)->findOneBy(['id' => $id_morale])], ['id' => 'desc']);
         if (!empty($depots)) {
-            $date_depots = $depots[0]->getCreatedAt();
-            if ($date_depots->format('Y') == getdate()['year'] && $date_depots->format('m') == getdate()['mon'] && $date_depots->format('d') == getdate()['mday']) {
-                return new Response("<script>alert('Un client ne peut déposer qu\'une seule fois dans une journée');</script>");
+            $date_depots = $depots[0]->getCreatedAt()->format('Y-m-d');
+            if ($date_depots === date('Y-m-d')) {
+                $this->addFlash('info', "Un client ne peut déposer qu'une seule fois de même date");
+                return $this->redirectToRoute('depot', ['id' => $persons->getId(), 'id_morale' => $id_morale]);
             }
         }
         $fund = new Funds();
@@ -171,3 +179,4 @@ class DepotController extends AbstractController
         ]);
     }
 }
+?>

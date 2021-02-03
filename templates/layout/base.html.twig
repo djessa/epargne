@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> {% block title %} Digital-Epargne-Service {% endblock %} </title>
+		{% block stylesheets %} {{ encore_entry_link_tags('admin') }} {% endblock %}
+	</head>
+	<body>
+		{% if app.user %}
+			{% include 'layout/parts/_nav.html.twig' %}
+			{% include 'layout/parts/_flush.html.twig' %}
+			<main class="container">
+				{% block body %}{% endblock %}
+			</main>
+			{% block javascripts %}
+				{{ encore_entry_script_tags('admin') }}
+			{% endblock %}
+		{% else %}
+			<div class="alert alert-danger m-5 text-center">
+				Vous n'êtes pas connecté
+			</div>
+		{% endif %}
+	</body>
+</html>

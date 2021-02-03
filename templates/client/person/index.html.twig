@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/base.html.twig' %}
 
 {% block title %}
 	Epargne
@@ -6,7 +6,7 @@
 
 
 {% block body %}
-	<div class="card card-primary container  mt-2 p-0">
+	<div class="card card-primary container  mt-1 p-0">
 		<div class="card-header" id="header-person">
 			<form class="recherche" action="{{ path('person')}}">
 				<input id="q" type="search" placeholder="Tapez le numéro de la CIN du personne" name="q">
