@@ -44,6 +44,6 @@ class AdminController extends AbstractController
         $taux->setValueOfThree(10.7);
         $em->persist($taux);
         $em->flush();
-        return new Response('Tout est réglé ' . $admin->getUsername() . ' ' .  $admin->getId());
+        return new Response('Tout est réglé ');
     }
 }

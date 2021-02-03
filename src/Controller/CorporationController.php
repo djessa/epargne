@@ -16,18 +16,17 @@ use Symfony\Component\Validator\Constraints\Length;
 class CorporationController extends AbstractController
 {
     /**
-     * @Route("/{id}/corporation", name="corporation")
+     * @Route("/corporation/{id}", name="corporation")
      */
     public  function  index(Persons $persons, CorporationsRepository $corporationsRepository): Response
     {
         return $this->render('client/corporation/index.html.twig', [
             'persons' => $persons,
-            'person_nav' => true,
             'corporations' => $corporationsRepository->findBy(['person' => $persons], ['id' => 'desc'])
         ]);
     }
     /**
-     * @Route("/{id}/corporation/register", name="corporation_register")
+     * @Route("/corporation/{id}/register", name="corporation_register")
      */
     public  function  register(Persons $persons, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -38,7 +37,7 @@ class CorporationController extends AbstractController
             $corporation->setPerson($persons);
             $entityManager->persist($corporation);
             $entityManager->flush();
-            return $this->redirectToRoute('corporation', ['id' => $persons->getId(), 'id_morale' => $corporation->getId()]);
+            return $this->redirectToRoute('corporation', ['id' => $persons->getId()]);
         }
         return $this->render('client/corporation/register.html.twig', [
             'form' => $form->createView(),
