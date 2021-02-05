@@ -37,8 +37,8 @@ class AdminController extends AbstractController
         $admin->setPassword($hash);
         $em->persist($admin);
         $taux = new Rates();
-        $taux->setYear(2021);
-        $taux->setMonth('January');
+        $taux->setYear(date("Y"));
+        $taux->setMonth(date("M"));
         $taux->setValueOfOne(7.9);
         $taux->setValueOfTwo(9.6);
         $taux->setValueOfThree(10.7);
