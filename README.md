@@ -16,6 +16,7 @@
 <ul style="margin-left: 20px;">
   <li>git clone https://github.com/Djessa/epargne.git</li>
   <li>cd epargne</li>
+  <li>git checkout master</li>
   <li>composer install</li>
   <li>yarn install</li>
   <li>configuration de base de données</li>
