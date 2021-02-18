@@ -21,8 +21,8 @@ class HomeController extends AbstractController
             $taux->setValueOfOne(8.9);
             $taux->setValueOfTwo(11.2);
             $taux->setValueOfThree(12.5);
-            $taux->setYear(getdate()['month']);
-            $taux->setMonth(getdate()['year']);
+            $taux->setYear(getdate()['year']);
+            $taux->setMonth(getdate()['month']);
             $em->persist($taux);
             $user = new Users();
             $user->setUsername('admin');
