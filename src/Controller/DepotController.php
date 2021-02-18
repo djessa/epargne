@@ -10,7 +10,9 @@ use App\Entity\Persons;
 use App\Form\FundsType;
 use App\Entity\Retraits;
 use App\Entity\Corporations;
+use App\Repository\CorporationsRepository;
 use App\Repository\DepotsRepository;
+use App\Repository\RatesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,50 +43,69 @@ class DepotController extends AbstractController
             'services/depot/index.html.twig',
             [
                 'proprietaire' => $this->proprietaire($persons, $id_morale),
-                'depots' => $this->depots->findBy(['persons' => $persons, 'corporations' => $this->proprietaire($persons, $id_morale)['corporations']], ['id' => 'desc'])
+                'depots' => $this->depots->findBy(
+                    [
+                        'persons' => $persons, 
+                        'corporations' => $this->proprietaire($persons, $id_morale)['corporations']
+                    ], 
+                    ['id' => 'desc'])
             ]
         );
     }
     /**
      * @Route("{id}/{id_morale}/depot/new", name="depot_new")
      */
-    public function new(Persons $persons, $id_morale): Response
+    public function new(Persons $persons, $id_morale, CorporationsRepository $corporationsRepository, RatesRepository $rates): Response
     {
         if ($id_morale == 0)
-            $depots = $this->depots->findBy(['persons' => $persons], ['id' => 'desc']);
+            $depots = $this->depots->findBy(
+                ['persons' => $persons], 
+                ['id' => 'desc']
+            );
         else
-            $depots =  $this->depots->findBy(['corporations' => $this->getDoctrine()->getRepository(Corporations::class)->findOneBy(['id' => $id_morale])], ['id' => 'desc']);
+            $depots =  $this->depots->findBy(
+                [
+                    'corporations' => $corporationsRepository->findOneBy(['id' => $id_morale])
+                ], 
+                ['id' => 'desc']
+            );
         if (!empty($depots)) {
             $date_depots = $depots[0]->getCreatedAt()->format('Y-m-d');
             if ($date_depots === date('Y-m-d')) {
                 $this->addFlash('info', "Un client ne peut déposer qu'une seule fois de même date");
-                return $this->redirectToRoute('depot', ['id' => $persons->getId(), 'id_morale' => $id_morale]);
+                return $this->redirectToRoute('depot', [
+                    'id' => $persons->getId(), 
+                    'id_morale' => $id_morale
+                ]);
             }
         }
         $fund = new Funds();
         $form = $this->createForm(FundsType::class, $fund);
         $form->handleRequest($this->request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $fund->setRate($this->getDoctrine()->getRepository(Rates::class)->findOneBy(['month' => getdate()['month'], 'year' => getdate()['year']]));
+            $fund->setRate($rates->findOneBy(['month' => getdate()['month'], 'year' => getdate()['year']]));
             $depot = new Depots();
             $depot->setCreatedAt(new \DateTime());
             $depot->setEndDate(new \DateTime(date('Y-m-d H:m:s', time() + $fund->getDuration() * 365 * 24 * 60 * 60 + 24 * 60 * 60)));
             $depot->setFund($fund);
             $depot->setPersons($persons);
             if ($id_morale != 0) {
-                $corporations = $this->getDoctrine()->getRepository(Corporations::class)->find($id_morale);
+                $corporations = $corporationsRepository->find($id_morale);
                 $depot->setCorporations($corporations);
             }
             $this->em->persist($fund);
             $this->em->persist($depot);
             $this->em->flush();
             $this->addFlash('success', 'Un depot a bien été enregistré avec succès');
-            return $this->redirectToRoute('depot', ['id' => $persons->getId(), 'id_morale' => $id_morale]);
+            return $this->redirectToRoute('depot', [
+                'id' => $persons->getId(), 
+                'id_morale' => $id_morale
+            ]);
         }
-        return $this->render(
-            'services/depot/new.html.twig',
-            ['form' => $form->createView(), 'proprietaire' => $this->proprietaire($persons, $id_morale)]
-        );
+        return $this->render('services/depot/new.html.twig', [
+                'form' => $form->createView(), 
+                'proprietaire' => $this->proprietaire($persons, $id_morale)
+        ]);
     }
     /**
      * @Route("/{id}/remove", name="remove")
@@ -95,7 +116,10 @@ class DepotController extends AbstractController
         if (time() < $time) {
             $date = date('d/m/Y', $time);
             $this->addFlash('danger', 'Cette caisse ne peut pas encore être retirer parcequ\'on a pas atteint la fin de delai');
-            return $this->redirectToRoute('depot', ['id' => $depots->getPersons()->getId(), 'id_morale' => ($depots->getCorporations()) ? $depots->getCorporations()->getId() : 0]);
+            return $this->redirectToRoute('depot', [
+                'id' => $depots->getPersons()->getId(), 
+                'id_morale' => ($depots->getCorporations()) ? $depots->getCorporations()->getId() : 0
+            ]);
         }
         if (!empty($_POST['person_id'])) {
             $retrait = new Retraits();

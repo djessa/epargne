@@ -24,26 +24,4 @@ class AdminController extends AbstractController
             return new Response("C'est une page d'administration, Vous n'avez pas le droit d'accès");
         }
     }
-    /**
-     * @Route("/init-project", name="add_admin")
-     */
-    public function addAdmin(UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
-    {
-        $admin  = new Users();
-        $admin->setUsername('djessa');
-        $admin->setPassword('admindjessa');
-        $admin->setIsAdmin(true);
-        $hash = $encoder->encodePassword($admin, $admin->getPassword());
-        $admin->setPassword($hash);
-        $em->persist($admin);
-        $taux = new Rates();
-        $taux->setYear(date("Y"));
-        $taux->setMonth(date("M"));
-        $taux->setValueOfOne(7.9);
-        $taux->setValueOfTwo(9.6);
-        $taux->setValueOfThree(10.7);
-        $em->persist($taux);
-        $em->flush();
-        return new Response('Tout est réglé ');
-    }
 }
