@@ -22,8 +22,6 @@
   <li>configuration de base de données</li>
   <li>php bin/console d:d:c</li>
   <li>php bin/console d:m:m</li>
-  <li>symfony serve</li>
-  <li>http://localhost:8000/init-project</li>
 </ul>
 
 
