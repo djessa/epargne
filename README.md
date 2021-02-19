@@ -20,8 +20,8 @@
   <li>composer install</li>
   <li>yarn install</li>
   <li>configuration de base de données</li>
-  <li>php bin/console d:d:c</li>
-  <li>php bin/console d:m:m</li>
+  <li>php bin/console doctrine:database:create</li>
+  <li>php bin/console doctrine:migrations:migrate</li>
 </ul>
 
 
