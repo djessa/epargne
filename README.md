@@ -24,6 +24,13 @@
   <li>php bin/console doctrine:migrations:migrate</li>
 </ul>
 
+
+<h3 style="margin-left: 10px;">Utilisation: </h3>
+<ul style="margin-left: 20px;">
+  <li>Username: djessa</li>
+  <li>Password: admindjessa</li>
+</ul>
+
 <p>
     <img src="epargne.PNG"/>
 </p>
