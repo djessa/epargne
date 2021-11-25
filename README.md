@@ -24,4 +24,8 @@
   <li>php bin/console doctrine:migrations:migrate</li>
 </ul>
 
+<p>
+    <img src="epargne.PNG" width="220" height="240" />
+</p>
+
 
