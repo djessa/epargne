@@ -25,7 +25,10 @@
 </ul>
 
 <p>
-    <img src="epargne.PNG" width="220" height="240" />
+    <img src="epargne.PNG"/>
+</p>
+<p>
+    <img src="epargne-depot.PNG"/>
 </p>
 
 
